@@ -17,19 +17,20 @@ const { title = 'Fate Apothecary', description = 'A living cookbook of food, her
   </head>
   <body>
     <header class="site-header shell">
-      <nav class="nav-side nav-left" aria-label="Primary navigation">
-        <a href="/recipes">Recipes</a>
-        <a href="#">Pantry</a>
+      <nav class="nav-side nav-left" aria-label="Site navigation">
+        <a href="/">Home</a>
+        <a href="/support">Support</a>
+        <a href="/about">About</a>
       </nav>
 
       <a href="/" class="brand" aria-label="Fate Apothecary home">
         <img src="/images/fate-logo.png" alt="Fate Apothecary" />
       </a>
 
-      <nav class="nav-side nav-right" aria-label="Secondary navigation">
+      <nav class="nav-side nav-right" aria-label="Content navigation">
+        <a href="/recipes">Recipes</a>
+        <a href="#">Pantry</a>
         <a href="#">Herbs</a>
-        <a href="/about">About</a>
-        <!-- Add a Support link here once the Buy Me a Coffee / support URL is ready. -->
       </nav>
     </header>
     <main><slot /></main>
