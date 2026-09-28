@@ -43,3 +43,7 @@ Those are intentionally deferred until the visual and recipe experience feel rig
 ## Decap Turbo
 
 This version uses Decap Turbo for CMS authentication. Site ID: `b82e48e5-869b-4b45-8e97-b16bac7822f3`. Keep both the temporary `https://fate-apothecary.pages.dev/admin/` and production `https://fateapothecary.com/admin/` URLs listed in Decap Turbo during migration/testing.
+
+
+## v7
+Updated Decap CMS beta to 3.17.0-beta.2 for Turbo authentication fixes.
