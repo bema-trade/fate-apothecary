@@ -5,16 +5,12 @@ const recipes = await getCollection('recipes');
 const featured = recipes.filter((r) => r.data.featured).slice(0, 3);
 ---
 <Base title="Fate Apothecary" description="A living cookbook of gluten-free, mostly dairy-free food, herbs, and kitchen intuition.">
-  <section class="home-hero shell">
-    <div>
-      <p class="eyebrow">Food, herbs, and kitchen intuition.</p>
-      <h1>Cook with<br />your <em>heart.</em></h1>
-      <p class="lede">A living cookbook for the food I actually make — practical, flexible, and meant to be made your own.</p>
-      <a class="button" href="/recipes">Browse recipes</a>
-    </div>
-    <div class="hero-orb" aria-hidden="true">
-      <img src="/images/fate-logo.png" alt="" />
-    </div>
+  <section class="home-hero-simple shell">
+    <img class="home-hero-logo" src="/images/fate-logo.png" alt="Fate Apothecary" />
+    <p class="eyebrow">Food, herbs, and kitchen intuition.</p>
+    <h1>Cook with your <em>heart.</em></h1>
+    <p class="lede">A living cookbook for the food I actually make — practical, flexible, and meant to be made your own.</p>
+    <a class="button" href="/recipes">Browse recipes</a>
   </section>
 
   <section class="shell home-section">
