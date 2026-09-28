@@ -1,0 +1,32 @@
+---
+const { title = 'Fate Apothecary', description = 'A living cookbook of food, herbs, and kitchen intuition.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" href="/images/fate-logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <header class="site-header shell">
+      <a href="/" class="brand" aria-label="Fate Apothecary home">
+        <img src="/images/fate-logo.png" alt="Fate Apothecary" />
+      </a>
+      <nav>
+        <a href="/recipes">Recipes</a>
+        <a href="#">Pantry</a>
+        <a href="#">Herbs</a>
+        <a href="#">About</a>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer shell">Fate Apothecary · Cook with your heart.</footer>
+  </body>
+</html>

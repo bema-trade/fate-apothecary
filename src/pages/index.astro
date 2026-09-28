@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const recipes = await getCollection('recipes');
+const featured = recipes.filter((r) => r.data.featured).slice(0, 3);
+---
+<Base title="Fate Apothecary" description="A living cookbook of gluten-free, mostly dairy-free food, herbs, and kitchen intuition.">
+  <section class="home-hero shell">
+    <div>
+      <p class="eyebrow">Food, herbs, and kitchen intuition.</p>
+      <h1>Cook with<br />your <em>heart.</em></h1>
+      <p class="lede">A living cookbook for the food I actually make — practical, flexible, and meant to be made your own.</p>
+      <a class="button" href="/recipes">Browse recipes</a>
+    </div>
+    <div class="hero-orb" aria-hidden="true">
+      <img src="/images/fate-logo.png" alt="" />
+    </div>
+  </section>
+
+  <section class="shell home-section">
+    <div class="section-heading">
+      <h2>Featured recipes</h2>
+      <a href="/recipes">View all</a>
+    </div>
+    <div class="recipe-grid">
+      {featured.map((recipe) => (
+        <a class="recipe-card" href={`/recipes/${recipe.id}/`}>
+          <div class="recipe-card-placeholder">{recipe.data.title}</div>
+          <h3>{recipe.data.title}</h3>
+          <p>{recipe.data.description}</p>
+          <div class="tag-row">{recipe.data.tags.map((tag) => <span>{tag}</span>)}</div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="philosophy shell">
+    <p class="eyebrow">The Fate Apothecary way</p>
+    <h2>Recipes are guidelines, not rules.</h2>
+    <p>Taste your food. Use what you have. Keep the meatballs roughly the same size. Let the ancestors tell you when to stop.</p>
+  </section>
+</Base>

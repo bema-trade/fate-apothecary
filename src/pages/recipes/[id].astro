@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const recipes = await getCollection('recipes');
+  return recipes.map((recipe) => ({ params: { id: recipe.id }, props: { recipe } }));
+}
+
+const { recipe } = Astro.props;
+const r = recipe.data;
+---
+<Base title={`${r.title} | Fate Apothecary`} description={r.description}>
+  <article class="recipe-page shell">
+    <section class="recipe-intro">
+      <div class="recipe-intro-copy">
+        <p class="eyebrow">Recipes · Main dishes</p>
+        <h1>{r.title}</h1>
+        <p class="recipe-description">{r.description}</p>
+        <div class="tag-row large">{r.tags.map((tag) => <span>{tag}</span>)}</div>
+        <div class="recipe-meta">
+          {r.yield && <div><strong>{r.yield}</strong><small>Yield</small></div>}
+          {r.prepTime && <div><strong>{r.prepTime}</strong><small>Prep</small></div>}
+          {r.cookTime && <div><strong>{r.cookTime}</strong><small>Cook</small></div>}
+          {r.temperature && <div><strong>{r.temperature}</strong><small>Air fryer</small></div>}
+        </div>
+      </div>
+      <div class="recipe-photo-placeholder">
+        <span>Food photo goes here</span>
+      </div>
+    </section>
+
+    <div class="recipe-rule"></div>
+
+    <section class="recipe-body">
+      <aside class="ingredients-card">
+        <h2>Ingredients</h2>
+        <ul>{r.ingredients.map((ingredient) => <li>{ingredient}</li>)}</ul>
+        {r.useYourHeart && (
+          <div class="heart-note">
+            <strong>♥ Use your heart</strong>
+            <p>{r.useYourHeart}</p>
+          </div>
+        )}
+      </aside>
+
+      <section class="instructions">
+        <h2>Instructions</h2>
+        <ol>
+          {r.instructions.map((step) => (
+            <li>
+              <div class="step-number"></div>
+              <div><h3>{step.title}</h3><p>{step.text}</p></div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </section>
+
+    <section class="recipe-extras">
+      {r.notes.length > 0 && <div><h3>Notes & tips</h3><ul>{r.notes.map((n) => <li>{n}</li>)}</ul></div>}
+      {r.storage.length > 0 && <div><h3>Storage</h3><ul>{r.storage.map((n) => <li>{n}</li>)}</ul></div>}
+      {r.serving && <div><h3>How we eat them</h3><p>{r.serving}</p></div>}
+    </section>
+
+    <div class="recipe-tools">
+      <button id="wake-lock" class="button button-secondary" type="button">Keep screen awake</button>
+      {r.lastUpdated && <p>Last updated {r.lastUpdated}</p>}
+    </div>
+  </article>
+
+  <script>
+    let wakeLock;
+    const button = document.querySelector('#wake-lock');
+    const supported = 'wakeLock' in navigator;
+
+    if (!supported && button) {
+      button.setAttribute('hidden', '');
+    }
+
+    async function requestWakeLock() {
+      if (!button || !supported) return;
+      try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        button.textContent = 'Screen awake · on';
+        button.classList.add('active');
+        wakeLock.addEventListener('release', () => {
+          button.textContent = 'Keep screen awake';
+          button.classList.remove('active');
+        });
+      } catch {
+        button.textContent = 'Couldn’t keep screen awake';
+      }
+    }
+
+    button?.addEventListener('click', async () => {
+      if (wakeLock) {
+        await wakeLock.release();
+        wakeLock = undefined;
+      } else {
+        await requestWakeLock();
+      }
+    });
+
+    document.addEventListener('visibilitychange', async () => {
+      if (document.visibilityState === 'visible' && button?.classList.contains('active') && !wakeLock) {
+        await requestWakeLock();
+      }
+    });
+  </script>
+</Base>

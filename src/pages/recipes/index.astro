@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const recipes = await getCollection('recipes');
+---
+<Base title="Recipes | Fate Apothecary">
+  <section class="shell listing-page">
+    <p class="eyebrow">The living cookbook</p>
+    <h1>Recipes</h1>
+    <div class="recipe-grid">
+      {recipes.map((recipe) => (
+        <a class="recipe-card" href={`/recipes/${recipe.id}/`}>
+          <div class="recipe-card-placeholder">{recipe.data.title}</div>
+          <h2>{recipe.data.title}</h2>
+          <p>{recipe.data.description}</p>
+          <div class="tag-row">{recipe.data.tags.map((tag) => <span>{tag}</span>)}</div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

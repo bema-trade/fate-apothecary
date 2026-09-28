@@ -1,0 +1,42 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/fate-apothecary
+  branch: main
+  # Configure GitHub OAuth before using the hosted /admin page.
+  # For local editing, run: npx decap-server
+
+local_backend: true
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: recipes
+    label: Recipes
+    folder: src/content/recipes
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Short description, name: description, widget: text }
+      - { label: Main photo, name: image, widget: image, required: false }
+      - { label: Tags, name: tags, widget: list, default: [] }
+      - { label: Yield, name: yield, widget: string, required: false }
+      - { label: Prep time, name: prepTime, widget: string, required: false }
+      - { label: Cook time, name: cookTime, widget: string, required: false }
+      - { label: Temperature, name: temperature, widget: string, required: false }
+      - { label: Ingredients, name: ingredients, widget: list }
+      - label: Instructions
+        name: instructions
+        widget: list
+        fields:
+          - { label: Step title, name: title, widget: string }
+          - { label: Step, name: text, widget: text }
+      - { label: Use your heart, name: useYourHeart, widget: text, required: false }
+      - { label: Notes & tips, name: notes, widget: list, required: false, default: [] }
+      - { label: Storage, name: storage, widget: list, required: false, default: [] }
+      - { label: How we eat it, name: serving, widget: text, required: false }
+      - { label: Last updated, name: lastUpdated, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
