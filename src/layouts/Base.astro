@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 
-const { title = 'Fate Apothecary', description = 'A living cookbook of food, herbs, and kitchen intuition.' } = Astro.props;
+const { title = 'Fate Apothecary', description = 'Practical food, herbs, gardening, and everyday wellness.' } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -17,23 +17,56 @@ const { title = 'Fate Apothecary', description = 'A living cookbook of food, her
   </head>
   <body>
     <header class="site-header shell">
-      <nav class="nav-side nav-left" aria-label="Site navigation">
+      <nav class="nav-side nav-left desktop-nav" aria-label="Site navigation">
         <a href="/">Home</a>
         <a href="/support">Support</a>
         <a href="/about">About</a>
       </nav>
 
+      <button class="mobile-menu-button" id="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
       <a href="/" class="brand" aria-label="Fate Apothecary home">
         <img src="/images/fate-logo.png" alt="Fate Apothecary" />
       </a>
 
-      <nav class="nav-side nav-right" aria-label="Content navigation">
+      <nav class="nav-side nav-right desktop-nav" aria-label="Content navigation">
         <a href="/recipes">Recipes</a>
-        <a href="#">Pantry</a>
-        <a href="#">Herbs</a>
+        <a href="/herbs">Herbs</a>
+        <a href="/garden">Garden</a>
+        <a class="search-icon-link" href="/search" aria-label="Search Fate Apothecary" title="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        </a>
       </nav>
+
+      <a class="mobile-search-button" href="/search" aria-label="Search Fate Apothecary">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+      </a>
     </header>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+      <div class="shell mobile-menu-inner">
+        <a href="/">Home</a>
+        <a href="/support">Support</a>
+        <a href="/about">About</a>
+        <a href="/recipes">Recipes</a>
+        <a href="/herbs">Herbs</a>
+        <a href="/garden">Garden</a>
+      </div>
+    </nav>
+
     <main><slot /></main>
-    <footer class="site-footer shell">Fate Apothecary · Cook with your heart.</footer>
+    <footer class="site-footer shell">Fate Apothecary · Nourish with intention.</footer>
+
+    <script>
+      const menuButton = document.querySelector('#mobile-menu-button');
+      const mobileMenu = document.querySelector('#mobile-menu');
+      menuButton?.addEventListener('click', () => {
+        const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!isOpen));
+        if (mobileMenu) mobileMenu.hidden = isOpen;
+      });
+    </script>
   </body>
 </html>

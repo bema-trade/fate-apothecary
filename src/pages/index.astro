@@ -1,40 +1,86 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+
 const recipes = await getCollection('recipes');
-const featured = recipes.filter((r) => r.data.featured).slice(0, 3);
+const herbs = await getCollection('herbs');
+const garden = await getCollection('garden');
+
+const featured = [
+  ...recipes.filter((item) => item.data.featured).map((item) => ({ ...item, section: 'Recipes', url: `/recipes/${item.id}/` })),
+  ...herbs.filter((item) => item.data.featured).map((item) => ({ ...item, section: 'Herbs', url: `/herbs/${item.id}/` })),
+  ...garden.filter((item) => item.data.featured).map((item) => ({ ...item, section: 'Garden', url: `/garden/${item.id}/` }))
+].slice(0, 3);
 ---
-<Base title="Fate Apothecary" description="A living cookbook of gluten-free, mostly dairy-free food, herbs, and kitchen intuition.">
+<Base title="Fate Apothecary" description="Practical food, herbs, gardening, and everyday wellness for taking care of yourself and the people you love.">
   <section class="home-hero-simple shell">
     <div class="home-hero-copy">
-      <p class="eyebrow">Food, herbs, and kitchen intuition.</p>
-      <h1>Cook with your <em>heart.</em></h1>
-      <p class="lede">A living cookbook for the food I actually make — practical, flexible, and meant to be made your own.</p>
-      <a class="button" href="/recipes">Browse recipes</a>
+      <p class="eyebrow">Food · herbs · growing · practical wellness</p>
+      <h1>Nourish with <em>intention.</em></h1>
+      <p class="lede">Practical ways to care for yourself and the people you love — through real food, useful herbs, growing what you can, and learning what works for your own body.</p>
+      <form class="home-search" action="/search/" method="get">
+        <label class="sr-only" for="home-search-input">Search Fate Apothecary</label>
+        <input id="home-search-input" name="q" type="search" placeholder="What are you looking for?" />
+        <button type="submit" aria-label="Search">Search</button>
+      </form>
     </div>
     <div class="home-hero-future" aria-hidden="true"></div>
   </section>
 
-  <section class="shell home-section">
+  <section class="shell home-section explore-section">
     <div class="section-heading">
-      <h2>Featured recipes</h2>
-      <a href="/recipes">View all</a>
+      <div>
+        <p class="eyebrow">Explore Fate Apothecary</p>
+        <h2>Start where you are.</h2>
+      </div>
     </div>
-    <div class="recipe-grid">
-      {featured.map((recipe) => (
-        <a class="recipe-card" href={`/recipes/${recipe.id}/`}>
-          <div class="recipe-card-placeholder">{recipe.data.title}</div>
-          <h3>{recipe.data.title}</h3>
-          <p>{recipe.data.description}</p>
-          <div class="tag-row">{recipe.data.tags.map((tag) => <span>{tag}</span>)}</div>
-        </a>
-      ))}
+    <div class="pillar-grid">
+      <a class="pillar-card" href="/recipes">
+        <span class="pillar-number">01</span>
+        <h3>Recipes</h3>
+        <p>Food I actually make: flexible, practical, and built for real life.</p>
+        <span class="pillar-link">Browse recipes →</span>
+      </a>
+      <a class="pillar-card" href="/herbs">
+        <span class="pillar-number">02</span>
+        <h3>Herbs</h3>
+        <p>Culinary uses, traditional knowledge, storage, growing notes, and things worth knowing.</p>
+        <span class="pillar-link">Explore herbs →</span>
+      </a>
+      <a class="pillar-card" href="/garden">
+        <span class="pillar-number">03</span>
+        <h3>Garden</h3>
+        <p>Growing food and herbs without pretending you need a farm or a horticulture degree.</p>
+        <span class="pillar-link">Go to the garden →</span>
+      </a>
     </div>
   </section>
 
+  {featured.length > 0 && (
+    <section class="shell home-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">From the apothecary</p>
+          <h2>Worth a look</h2>
+        </div>
+      </div>
+      <div class="recipe-grid">
+        {featured.map((item) => (
+          <a class="recipe-card" href={item.url}>
+            {item.data.image ? <img class="resource-card-image" src={item.data.image} alt="" /> : <div class="recipe-card-placeholder">{item.data.title}</div>}
+            <p class="card-kicker">{item.section}</p>
+            <h3>{item.data.title}</h3>
+            <p>{item.data.description}</p>
+            <div class="tag-row">{item.data.tags.map((tag) => <span>{tag}</span>)}</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
   <section class="philosophy shell">
     <p class="eyebrow">The Fate Apothecary way</p>
-    <h2>Recipes are guidelines, not rules.</h2>
-    <p>Taste your food. Use what you have. Keep the meatballs roughly the same size. Let the ancestors tell you when to stop.</p>
+    <h2>Useful beats perfect.</h2>
+    <p>Learn your ingredients. Pay attention to your body. Grow what you can. Taste your food. Keep what works, leave what doesn’t, and let the ancestors tell you when to stop adding garlic.</p>
   </section>
 </Base>

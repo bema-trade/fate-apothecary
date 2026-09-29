@@ -1,49 +1,32 @@
-# Fate Apothecary starter
+# Fate Apothecary v8
 
-A minimal Astro + Decap CMS starter for the Fate Apothecary living cookbook.
+A Cloudflare Pages + Astro + Decap Turbo starter for Fate Apothecary.
 
-## What's included
-- Moody deep-plum design direction based on the approved recipe-page mockup
-- Home page
-- Recipe listing
-- Pesto Chicken Meatballs as the first real structured recipe
-- Responsive mobile layout
-- Keep Screen Awake button using the Wake Lock API
-- Decap CMS recipe form at `/admin`
+## What changed in v8
 
-## Run locally
-1. Install Node.js.
-2. In this folder, run `npm install`.
-3. Run `npm run dev`.
-4. Open the local address Astro prints in the terminal.
+- Navigation is now **Recipes / Herbs / Garden** instead of Recipes / Pantry / Herbs.
+- Added real **Herbs** and **Garden** collections to Decap `/admin`.
+- Added Herbs and Garden listing/detail pages.
+- Reworked the homepage so Fate reads as a broader practical wellness resource instead of a recipe-only site.
+- Added site-wide search across Recipes, Herbs, and Garden.
+- Rebuilt the mobile header with a hamburger menu plus search icon so every navigation item is accessible on phones.
+- Recipe uploads now display their real image when one is provided.
+- Preserved the Decap Turbo site ID and beta admin setup from v7.
 
-## Test the CMS locally
-In a second terminal, run `npx decap-server` while `npm run dev` is running. Then open `/admin`.
+## Deploy
 
-## Before Cloudflare deployment
-1. Create a GitHub repository named `fate-apothecary` (or whatever you prefer).
-2. Replace `YOUR_GITHUB_USERNAME/fate-apothecary` in `public/admin/config.yml` with the real repository.
-3. Connect that GitHub repository to Cloudflare Pages.
-4. Cloudflare build command: `npm run build`
-5. Cloudflare output directory: `dist`
-6. Configure GitHub OAuth for Decap before using the hosted `/admin` page. This can be handled with a small Cloudflare Worker so Fate can remain hosted on Cloudflare.
-7. Move the `fateapothecary.com` domain from Google Sites only after the Cloudflare preview looks right.
+Upload the contents of this folder to the root of the `bema-trade/fate-apothecary` GitHub repository and commit. Cloudflare Pages should deploy the new commit automatically.
 
-## Still intentionally unfinished
-- Real food photography (the recipe page currently has a clear photo placeholder)
-- Final navigation categories
-- Search/filter UI
-- Ad/affiliate placements
-- Recipe structured data/schema
-- Hosted Decap OAuth
+Cloudflare Pages build settings:
 
-Those are intentionally deferred until the visual and recipe experience feel right.
+- Production branch: `main`
+- Build command: `npm run build`
+- Build output: `dist`
 
+## Admin
 
-## Decap Turbo
+The admin lives at `/admin/` and uses Decap Turbo.
 
-This version uses Decap Turbo for CMS authentication. Site ID: `b82e48e5-869b-4b45-8e97-b16bac7822f3`. Keep both the temporary `https://fate-apothecary.pages.dev/admin/` and production `https://fateapothecary.com/admin/` URLs listed in Decap Turbo during migration/testing.
+Current Turbo site ID:
 
-
-## v7
-Updated Decap CMS beta to 3.17.0-beta.2 for Turbo authentication fixes.
+`b82e48e5-869b-4b45-8e97-b16bac7822f3`

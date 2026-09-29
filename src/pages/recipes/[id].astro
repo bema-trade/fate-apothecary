@@ -14,7 +14,7 @@ const r = recipe.data;
   <article class="recipe-page shell">
     <section class="recipe-intro">
       <div class="recipe-intro-copy">
-        <p class="eyebrow">Recipes · Main dishes</p>
+        <p class="eyebrow">Recipes{r.category ? ` · ${r.category}` : ``}</p>
         <h1>{r.title}</h1>
         <p class="recipe-description">{r.description}</p>
         <div class="tag-row large">{r.tags.map((tag) => <span>{tag}</span>)}</div>
@@ -25,9 +25,7 @@ const r = recipe.data;
           {r.temperature && <div><strong>{r.temperature}</strong><small>Air fryer</small></div>}
         </div>
       </div>
-      <div class="recipe-photo-placeholder">
-        <span>Food photo goes here</span>
-      </div>
+      {r.image ? <img class="recipe-hero-image" src={r.image} alt={r.title} /> : <div class="recipe-photo-placeholder"><span>Food photo goes here</span></div>}
     </section>
 
     <div class="recipe-rule"></div>

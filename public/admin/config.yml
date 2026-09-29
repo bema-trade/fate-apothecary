@@ -3,7 +3,6 @@ backend:
   turbo_site_id: b82e48e5-869b-4b45-8e97-b16bac7822f3
   branch: main
 
-
 media_folder: public/images/uploads
 public_folder: /images/uploads
 
@@ -19,6 +18,11 @@ collections:
       - { label: Title, name: title, widget: string }
       - { label: Short description, name: description, widget: text }
       - { label: Main photo, name: image, widget: image, required: false }
+      - label: Category
+        name: category
+        widget: select
+        required: false
+        options: [Main dish, Soup, Side, Salad, Sauce, Condiment, Pantry staple, Snack, Breakfast, Dessert, Drink, Kitchen basic]
       - { label: Tags, name: tags, widget: list, default: [] }
       - { label: Yield, name: yield, widget: string, required: false }
       - { label: Prep time, name: prepTime, widget: string, required: false }
@@ -35,5 +39,52 @@ collections:
       - { label: Notes & tips, name: notes, widget: list, required: false, default: [] }
       - { label: Storage, name: storage, widget: list, required: false, default: [] }
       - { label: How we eat it, name: serving, widget: text, required: false }
+      - { label: Last updated, name: lastUpdated, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+
+  - name: herbs
+    label: Herbs
+    folder: src/content/herbs
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Herb name, name: title, widget: string }
+      - { label: Short description, name: description, widget: text }
+      - { label: Main photo, name: image, widget: image, required: false }
+      - { label: Tags, name: tags, widget: list, default: [] }
+      - { label: Flavor & aroma, name: flavorProfile, widget: text, required: false }
+      - { label: Culinary uses, name: culinaryUses, widget: list, required: false, default: [] }
+      - { label: Traditional use notes, name: traditionalUses, widget: text, required: false }
+      - { label: Growing notes, name: growingNotes, widget: text, required: false }
+      - { label: Storage & preserving, name: storage, widget: text, required: false }
+      - { label: Cautions / things to know, name: cautions, widget: text, required: false }
+      - { label: Last updated, name: lastUpdated, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+
+  - name: garden
+    label: Garden
+    folder: src/content/garden
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Short description, name: description, widget: text }
+      - { label: Main photo, name: image, widget: image, required: false }
+      - { label: Tags, name: tags, widget: list, default: [] }
+      - { label: Season / timing, name: season, widget: string, required: false }
+      - { label: What you need, name: whatYouNeed, widget: list, required: false, default: [] }
+      - label: Steps
+        name: steps
+        widget: list
+        required: false
+        fields:
+          - { label: Step title, name: title, widget: string }
+          - { label: Step, name: text, widget: text }
+      - { label: Harvest / what to expect, name: harvest, widget: text, required: false }
+      - { label: Notes & tips, name: notes, widget: list, required: false, default: [] }
       - { label: Last updated, name: lastUpdated, widget: string, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false }

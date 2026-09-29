@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const garden = await getCollection('garden');
+---
+<Base title="Garden | Fate Apothecary" description="Practical garden notes for growing food and herbs at home.">
+  <section class="shell listing-page">
+    <p class="eyebrow">Grow what you can</p>
+    <h1>Garden</h1>
+    <p class="listing-lede">Practical growing notes, garden experiments, and the things worth doing again next season.</p>
+    {garden.length > 0 ? (
+      <div class="recipe-grid">
+        {garden.map((item) => (
+          <a class="recipe-card" href={`/garden/${item.id}/`}>
+            {item.data.image ? <img class="resource-card-image" src={item.data.image} alt="" /> : <div class="recipe-card-placeholder">{item.data.title}</div>}
+            <h2>{item.data.title}</h2>
+            <p>{item.data.description}</p>
+            <div class="tag-row">{item.data.tags.map((tag) => <span>{tag}</span>)}</div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <h2>Nothing planted here yet.</h2>
+        <p>Garden notes will show up here as they’re added.</p>
+      </div>
+    )}
+  </section>
+</Base>

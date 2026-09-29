@@ -1,6 +1,7 @@
 ---
 title: Pesto Chicken Meatballs
 description: Easy, freezer-friendly chicken meatballs with pesto, gluten-free breadcrumbs, and almost no fuss.
+category: Main dish
 tags:
   - Gluten Free
   - Freezer Friendly
