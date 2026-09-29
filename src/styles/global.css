@@ -237,6 +237,7 @@ h3 { font-size: 1.5rem; }
 .about-copy em { color: var(--mauve); font-family: 'Cormorant Garamond', serif; font-size: 1.15em; }
 .about-note { margin-top: 28px; padding: 24px 26px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.025); color: var(--muted); }
 .about-note p:last-child { margin-bottom: 0; }
+.about-em {  margin-left: 0.35em;}
 
 /* Mobile */
 @media (max-width: 820px) {
