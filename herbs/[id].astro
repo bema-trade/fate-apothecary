@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const herbs = await getCollection('herbs');
+  return herbs.map((herb) => ({ params: { id: herb.id }, props: { herb } }));
+}
+
+const { herb } = Astro.props;
+const h = herb.data;
+---
+<Base title={`${h.title} | Fate Apothecary`} description={h.description}>
+  <article class="resource-page shell">
+    <section class="resource-intro">
+      <div>
+        <p class="eyebrow">Herbs</p>
+        <h1>{h.title}</h1>
+        <p class="resource-description">{h.description}</p>
+        <div class="tag-row large">{h.tags.map((tag) => <span>{tag}</span>)}</div>
+      </div>
+      {h.image ? <img class="resource-hero-image" src={h.image} alt={h.title} /> : <div class="resource-photo-placeholder">Herb photo goes here</div>}
+    </section>
+
+    <section class="resource-sections">
+      {h.flavorProfile && <div class="resource-block"><h2>Flavor & aroma</h2><p>{h.flavorProfile}</p></div>}
+      {h.culinaryUses.length > 0 && <div class="resource-block"><h2>In the kitchen</h2><ul>{h.culinaryUses.map((item) => <li>{item}</li>)}</ul></div>}
+      {h.traditionalUses && <div class="resource-block"><h2>Traditional use notes</h2><p>{h.traditionalUses}</p></div>}
+      {h.growingNotes && <div class="resource-block"><h2>Growing it</h2><p>{h.growingNotes}</p></div>}
+      {h.storage && <div class="resource-block"><h2>Storage & preserving</h2><p>{h.storage}</p></div>}
+      {h.cautions && <div class="resource-block resource-caution"><h2>Things to know</h2><p>{h.cautions}</p></div>}
+    </section>
+    {h.lastUpdated && <p class="resource-updated">Last updated {h.lastUpdated}</p>}
+  </article>
+</Base>

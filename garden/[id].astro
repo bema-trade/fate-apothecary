@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const garden = await getCollection('garden');
+  return garden.map((item) => ({ params: { id: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const g = item.data;
+---
+<Base title={`${g.title} | Fate Apothecary`} description={g.description}>
+  <article class="resource-page shell">
+    <section class="resource-intro">
+      <div>
+        <p class="eyebrow">Garden</p>
+        <h1>{g.title}</h1>
+        <p class="resource-description">{g.description}</p>
+        <div class="tag-row large">{g.tags.map((tag) => <span>{tag}</span>)}</div>
+        {g.season && <p class="resource-meta"><strong>Season / timing:</strong> {g.season}</p>}
+      </div>
+      {g.image ? <img class="resource-hero-image" src={g.image} alt={g.title} /> : <div class="resource-photo-placeholder">Garden photo goes here</div>}
+    </section>
+
+    <section class="resource-sections">
+      {g.whatYouNeed.length > 0 && <div class="resource-block"><h2>What you need</h2><ul>{g.whatYouNeed.map((item) => <li>{item}</li>)}</ul></div>}
+      {g.steps.length > 0 && <div class="resource-block"><h2>What to do</h2><ol class="resource-steps">{g.steps.map((step) => <li><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol></div>}
+      {g.harvest && <div class="resource-block"><h2>Harvest / what to expect</h2><p>{g.harvest}</p></div>}
+      {g.notes.length > 0 && <div class="resource-block"><h2>Notes & tips</h2><ul>{g.notes.map((note) => <li>{note}</li>)}</ul></div>}
+    </section>
+    {g.lastUpdated && <p class="resource-updated">Last updated {g.lastUpdated}</p>}
+  </article>
+</Base>

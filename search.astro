@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const recipes = await getCollection('recipes');
+const herbs = await getCollection('herbs');
+const garden = await getCollection('garden');
+
+const items = [
+  ...recipes.map((item) => ({
+    title: item.data.title,
+    description: item.data.description,
+    tags: item.data.tags,
+    type: 'Recipe',
+    url: `/recipes/${item.id}/`,
+    keywords: [item.data.category, ...item.data.ingredients, item.data.useYourHeart, ...item.data.notes, ...item.data.storage, item.data.serving].filter(Boolean).join(' ')
+  })),
+  ...herbs.map((item) => ({
+    title: item.data.title,
+    description: item.data.description,
+    tags: item.data.tags,
+    type: 'Herb',
+    url: `/herbs/${item.id}/`,
+    keywords: [item.data.flavorProfile, ...item.data.culinaryUses, item.data.traditionalUses, item.data.growingNotes, item.data.storage, item.data.cautions].filter(Boolean).join(' ')
+  })),
+  ...garden.map((item) => ({
+    title: item.data.title,
+    description: item.data.description,
+    tags: item.data.tags,
+    type: 'Garden',
+    url: `/garden/${item.id}/`,
+    keywords: [item.data.season, ...item.data.whatYouNeed, ...item.data.steps.flatMap((step) => [step.title, step.text]), item.data.harvest, ...item.data.notes].filter(Boolean).join(' ')
+  }))
+];
+---
+<Base title="Search | Fate Apothecary" description="Search recipes, herbs, and garden resources from Fate Apothecary.">
+  <section class="shell search-page">
+    <p class="eyebrow">Find what you need</p>
+    <h1>Search</h1>
+    <form class="search-form" action="/search/" method="get">
+      <label class="sr-only" for="search-input">Search Fate Apothecary</label>
+      <input id="search-input" name="q" type="search" placeholder="Try garlic, freezer friendly, basil..." autocomplete="off" />
+      <button class="button" type="submit">Search</button>
+    </form>
+
+    <div class="search-filter-row" aria-label="Filter search results">
+      <button class="search-filter active" type="button" data-filter="all">All</button>
+      <button class="search-filter" type="button" data-filter="recipe">Recipes</button>
+      <button class="search-filter" type="button" data-filter="herb">Herbs</button>
+      <button class="search-filter" type="button" data-filter="garden">Garden</button>
+    </div>
+
+    <p id="search-summary" class="search-summary"></p>
+    <div id="search-results" class="search-results">
+      {items.map((item) => (
+        <a
+          class="search-result"
+          href={item.url}
+          data-type={item.type.toLowerCase()}
+          data-search={`${item.title} ${item.description} ${item.tags.join(' ')} ${item.type} ${item.keywords}`.toLowerCase()}
+        >
+          <span class="search-result-type">{item.type}</span>
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+          {item.tags.length > 0 && <div class="tag-row">{item.tags.map((tag) => <span>{tag}</span>)}</div>}
+        </a>
+      ))}
+    </div>
+
+    {items.length === 0 && <div class="empty-state"><h2>Nothing to search yet.</h2><p>Once content is added, it will all be searchable here.</p></div>}
+  </section>
+
+  <script>
+    const input = document.querySelector('#search-input');
+    const results = Array.from(document.querySelectorAll('.search-result'));
+    const summary = document.querySelector('#search-summary');
+    const filters = Array.from(document.querySelectorAll('.search-filter'));
+    let activeFilter = 'all';
+
+    const params = new URLSearchParams(window.location.search);
+    const initialQuery = params.get('q') || '';
+    if (input) input.value = initialQuery;
+
+    function render() {
+      const query = (input?.value || '').trim().toLowerCase();
+      let visible = 0;
+      results.forEach((result) => {
+        const matchesText = !query || result.dataset.search?.includes(query);
+        const matchesType = activeFilter === 'all' || result.dataset.type === activeFilter;
+        const show = matchesText && matchesType;
+        result.hidden = !show;
+        if (show) visible += 1;
+      });
+
+      if (summary) {
+        if (!query && activeFilter === 'all') summary.textContent = `${visible} resource${visible === 1 ? '' : 's'} available.`;
+        else summary.textContent = `${visible} result${visible === 1 ? '' : 's'} found.`;
+      }
+    }
+
+    input?.addEventListener('input', render);
+    filters.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.filter || 'all';
+        filters.forEach((item) => item.classList.toggle('active', item === button));
+        render();
+      });
+    });
+    render();
+  </script>
+</Base>
