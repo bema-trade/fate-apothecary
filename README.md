@@ -1,17 +1,21 @@
-# Fate Apothecary v8
+# Fate Apothecary v9
 
-A Cloudflare Pages + Astro + Decap Turbo starter for Fate Apothecary.
+A Cloudflare Pages + Astro + Decap Turbo site for Fate Apothecary.
 
-## What changed in v8
+## What changed in v9
 
-- Navigation is now **Recipes / Herbs / Garden** instead of Recipes / Pantry / Herbs.
-- Added real **Herbs** and **Garden** collections to Decap `/admin`.
-- Added Herbs and Garden listing/detail pages.
-- Reworked the homepage so Fate reads as a broader practical wellness resource instead of a recipe-only site.
-- Added site-wide search across Recipes, Herbs, and Garden.
-- Rebuilt the mobile header with a hamburger menu plus search icon so every navigation item is accessible on phones.
-- Recipe uploads now display their real image when one is provided.
-- Preserved the Decap Turbo site ID and beta admin setup from v7.
+- Fixed Decap list fields so entries such as recipe ingredients can be typed as normal phrases with spaces.
+- Ingredients now use a repeatable one-line text field (`+ Add Ingredient`) instead of the compact tag-style list control.
+- Applied the same mobile-friendly repeatable text-field treatment to other phrase-based lists:
+  - Recipe tags
+  - Recipe notes & tips
+  - Recipe storage notes
+  - Herb tags
+  - Herb culinary uses
+  - Garden tags
+  - Garden "What you need" items
+  - Garden notes & tips
+- Preserved the current site content, styling, About/footer edits, Decap Turbo configuration, and Turbo site ID from the uploaded v8.2.6.1 build.
 
 ## Deploy
 

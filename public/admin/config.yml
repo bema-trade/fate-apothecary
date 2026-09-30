@@ -23,21 +23,56 @@ collections:
         widget: select
         required: false
         options: [Main dish, Soup, Side, Salad, Sauce, Condiment, Pantry staple, Snack, Breakfast, Dessert, Drink, Kitchen basic]
-      - { label: Tags, name: tags, widget: list, default: [] }
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        default: []
+        label_singular: Tag
+        field:
+          label: Tag
+          name: tag
+          widget: string
       - { label: Yield, name: yield, widget: string, required: false }
       - { label: Prep time, name: prepTime, widget: string, required: false }
       - { label: Cook time, name: cookTime, widget: string, required: false }
       - { label: Temperature, name: temperature, widget: string, required: false }
-      - { label: Ingredients, name: ingredients, widget: list }
+      - label: Ingredients
+        name: ingredients
+        widget: list
+        label_singular: Ingredient
+        field:
+          label: Ingredient
+          name: ingredient
+          widget: string
       - label: Instructions
         name: instructions
         widget: list
+        label_singular: Step
         fields:
           - { label: Step title, name: title, widget: string }
           - { label: Step, name: text, widget: text }
       - { label: Use your heart, name: useYourHeart, widget: text, required: false }
-      - { label: Notes & tips, name: notes, widget: list, required: false, default: [] }
-      - { label: Storage, name: storage, widget: list, required: false, default: [] }
+      - label: Notes & tips
+        name: notes
+        widget: list
+        required: false
+        default: []
+        label_singular: Note
+        field:
+          label: Note
+          name: note
+          widget: string
+      - label: Storage
+        name: storage
+        widget: list
+        required: false
+        default: []
+        label_singular: Storage note
+        field:
+          label: Storage note
+          name: storageNote
+          widget: string
       - { label: How we eat it, name: serving, widget: text, required: false }
       - { label: Last updated, name: lastUpdated, widget: string, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false }
@@ -53,9 +88,27 @@ collections:
       - { label: Herb name, name: title, widget: string }
       - { label: Short description, name: description, widget: text }
       - { label: Main photo, name: image, widget: image, required: false }
-      - { label: Tags, name: tags, widget: list, default: [] }
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        default: []
+        label_singular: Tag
+        field:
+          label: Tag
+          name: tag
+          widget: string
       - { label: Flavor & aroma, name: flavorProfile, widget: text, required: false }
-      - { label: Culinary uses, name: culinaryUses, widget: list, required: false, default: [] }
+      - label: Culinary uses
+        name: culinaryUses
+        widget: list
+        required: false
+        default: []
+        label_singular: Culinary use
+        field:
+          label: Culinary use
+          name: culinaryUse
+          widget: string
       - { label: Traditional use notes, name: traditionalUses, widget: text, required: false }
       - { label: Growing notes, name: growingNotes, widget: text, required: false }
       - { label: Storage & preserving, name: storage, widget: text, required: false }
@@ -74,17 +127,45 @@ collections:
       - { label: Title, name: title, widget: string }
       - { label: Short description, name: description, widget: text }
       - { label: Main photo, name: image, widget: image, required: false }
-      - { label: Tags, name: tags, widget: list, default: [] }
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        default: []
+        label_singular: Tag
+        field:
+          label: Tag
+          name: tag
+          widget: string
       - { label: Season / timing, name: season, widget: string, required: false }
-      - { label: What you need, name: whatYouNeed, widget: list, required: false, default: [] }
+      - label: What you need
+        name: whatYouNeed
+        widget: list
+        required: false
+        default: []
+        label_singular: Item
+        field:
+          label: Item
+          name: item
+          widget: string
       - label: Steps
         name: steps
         widget: list
         required: false
+        label_singular: Step
         fields:
           - { label: Step title, name: title, widget: string }
           - { label: Step, name: text, widget: text }
       - { label: Harvest / what to expect, name: harvest, widget: text, required: false }
-      - { label: Notes & tips, name: notes, widget: list, required: false, default: [] }
+      - label: Notes & tips
+        name: notes
+        widget: list
+        required: false
+        default: []
+        label_singular: Note
+        field:
+          label: Note
+          name: note
+          widget: string
       - { label: Last updated, name: lastUpdated, widget: string, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false }
