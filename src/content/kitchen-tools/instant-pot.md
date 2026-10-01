@@ -8,5 +8,5 @@ whyWeUseIt: The instant pot is a major workhorse in our house.  With a 5-person
   much for us, and so very quickly.
 purchaseUrl: https://a.co/d/0cvf6J3s
 affiliate: false
-featured: false
+featured: true
 ---
