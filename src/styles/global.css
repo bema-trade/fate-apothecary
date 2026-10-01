@@ -191,6 +191,14 @@ h3 { font-size: 1.5rem; }
 .ingredients-card { border: 1px solid var(--line); border-radius: 14px; padding: 28px; background: rgba(255,255,255,.025); align-self: start; }
 .ingredients-card ul, .recipe-extras ul, .resource-block ul { padding-left: 1.2rem; }
 .ingredients-card li, .recipe-extras li, .resource-block li { margin-bottom: 12px; }
+.ingredient-recipe-link {
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-color: var(--mauve);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.ingredient-recipe-link:hover { color: #f3cfe1; }
 .heart-note { margin-top: 28px; padding: 18px; border: 1px solid #865572; border-radius: 12px; background: linear-gradient(145deg,#533047,#43263a); }
 .heart-note strong { color: #efb5cf; text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; }
 .instructions ol { list-style: none; margin: 0; padding: 0; counter-reset: steps; }

@@ -12,11 +12,11 @@ cookTime: About 20 minutes
 temperature: 425°F
 timerMinutes: 20
 ingredients:
-  - 2 lb ground chicken
-  - 1 small jar pesto — choose your favorite
-  - About 1/2 bag Schär gluten-free breadcrumbs
-  - 2 eggs
-  - Salt and pepper, to taste
+  - ingredient: 2 lb ground chicken
+  - ingredient: 1 small jar pesto — choose your favorite
+  - ingredient: About 1/2 bag Schär gluten-free breadcrumbs
+  - ingredient: 2 eggs
+  - ingredient: Salt and pepper, to taste
 instructions:
   - title: Mix the base.
     text: Mix the pesto, breadcrumbs, eggs, salt, and pepper together until they're well combined.

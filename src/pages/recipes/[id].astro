@@ -48,7 +48,19 @@ const r = recipe.data;
     <section class="recipe-body">
       <aside class="ingredients-card">
         <h2>Ingredients</h2>
-        <ul>{r.ingredients.map((ingredient) => <li>{ingredient}</li>)}</ul>
+        <ul>
+          {r.ingredients.map((ingredient) => {
+            const ingredientText = typeof ingredient === 'string' ? ingredient : ingredient.ingredient;
+            const linkedRecipe = typeof ingredient === 'string' ? undefined : ingredient.linkedRecipe;
+            return (
+              <li>
+                {linkedRecipe ? (
+                  <a class="ingredient-recipe-link" href={`/recipes/${linkedRecipe}/`}>{ingredientText}</a>
+                ) : ingredientText}
+              </li>
+            );
+          })}
+        </ul>
         {r.useYourHeart && (
           <div class="heart-note">
             <strong>♥ Use your heart</strong>

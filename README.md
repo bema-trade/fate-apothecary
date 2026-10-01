@@ -1,24 +1,26 @@
-# Fate Apothecary v10
+# Fate Apothecary v11
 
-Built from the current GitHub export supplied by Beth (v8.2.6.1 lineage with later live edits preserved).
+Built from the current GitHub export supplied after v10, including the latest Ranch Seasoning Mix edits.
 
-## v10 changes
+## v11 changes
 
-- Normalized top spacing and interior-page title sizing across Recipes, Herbs, Garden, Search, About, Support, Thank You, and resource detail pages.
-- Made About, Support, and Thank You use the same content width and paragraph spacing.
-- Moved **Keep screen awake** to the top of recipe pages.
-- Added a **Print recipe** button with print-friendly CSS that removes site navigation, footer, buttons, and large recipe photography.
-- Added an optional **Timer (minutes)** field to the Decap recipe editor.
-- Recipes with a timer value automatically show a timer button at the top of the page.
-- Pesto Chicken Meatballs is set to a 20-minute timer as an example.
-- Existing content, About copy, Support copy/Square link, Thank You page, footer, Decap Turbo settings, Ranch Seasoning Mix, and mobile navigation are preserved.
+- Upgraded recipe **Ingredients** in Decap from plain text entries to repeatable ingredient records.
+- Each ingredient now has an optional **Linked recipe** field.
+- The Linked recipe field searches the existing Recipes collection by title/description and stores that recipe's slug.
+- On the live recipe page, linked ingredients render as subtle clickable links to the selected Fate recipe.
+- Existing recipe ingredient data was migrated into the new structure so Pesto Chicken Meatballs and Ranch Seasoning Mix remain editable in Decap without re-entry.
+- The Astro content schema remains backward-compatible with legacy plain-text ingredient entries as a safety net.
+- All v10 recipe tools (screen-awake, print, optional timer), current site copy, footer, mobile navigation, Decap Turbo settings, and content are preserved.
 
-## Recipe timer
+## Example
 
-In `/admin`, enter a whole number in **Timer (minutes)** only when a recipe benefits from a single primary timer. Leave it blank for recipes that do not need one.
+For a future Ranch Dip recipe, enter an ingredient such as:
 
-The timer button counts down in the page. Tapping it while it is running resets it. When time is up it shows an alert and, where supported, vibrates briefly.
+- **Ingredient:** `2 tablespoons ranch seasoning mix`
+- **Linked recipe:** `Ranch Seasoning Mix`
+
+The published ingredient will link directly to the Ranch Seasoning Mix recipe. Leave **Linked recipe** blank for ordinary ingredients.
 
 ## Deployment
 
-Upload the contents of this folder to the existing `bema-trade/fate-apothecary` GitHub repository and commit to `main`. Cloudflare Pages should then rebuild automatically.
+Upload the contents of this folder to the existing `bema-trade/fate-apothecary` GitHub repository and commit to `main`. Cloudflare Pages should rebuild automatically.

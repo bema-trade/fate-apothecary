@@ -42,10 +42,20 @@ collections:
         name: ingredients
         widget: list
         label_singular: Ingredient
-        field:
-          label: Ingredient
-          name: ingredient
-          widget: string
+        summary: "{{fields.ingredient}}"
+        fields:
+          - label: Ingredient
+            name: ingredient
+            widget: string
+          - label: Linked recipe
+            name: linkedRecipe
+            widget: relation
+            collection: recipes
+            search_fields: [title, description]
+            display_fields: [title]
+            value_field: "{{slug}}"
+            required: false
+            hint: "Optional. Select an existing Fate recipe if this ingredient should link to it."
       - label: Instructions
         name: instructions
         widget: list

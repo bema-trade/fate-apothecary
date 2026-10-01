@@ -7,12 +7,12 @@ tags:
   - Gluten Free
   - Dairy Free
 ingredients:
-  - 1 cup dried parsley
-  - 2¾ tablespoons dried dill weed
-  - 2¾ tablespoons garlic powder
-  - 1⅓ tablespoons onion powder
-  - 1⅓ tablespoons salt
-  - ⅔ tablespoon black pepper
+  - ingredient: 1 cup dried parsley
+  - ingredient: 2¾ tablespoons dried dill weed
+  - ingredient: 2¾ tablespoons garlic powder
+  - ingredient: 1⅓ tablespoons onion powder
+  - ingredient: 1⅓ tablespoons salt
+  - ingredient: ⅔ tablespoon black pepper
 instructions:
   - title: Blend
     text: Add all ingredients into a blender or food processor.  Blend well.  You
