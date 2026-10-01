@@ -13,14 +13,16 @@ const recipes = defineCollection({
     prepTime: z.string().optional(),
     cookTime: z.string().optional(),
     temperature: z.string().optional(),
-    timerMinutes: z.number().int().positive().optional(),
     ingredients: z.array(z.union([
       z.string(),
       z.object({
         ingredient: z.string(),
-        linkedRecipe: z.string().optional().nullable()
+        linkedRecipe: z.string().optional().nullable(),
+        externalUrl: z.string().optional().nullable(),
+        externalAffiliate: z.boolean().default(false)
       })
     ])),
+    tools: z.array(z.string()).default([]),
     instructions: z.array(z.object({
       title: z.string(),
       text: z.string()
@@ -30,6 +32,20 @@ const recipes = defineCollection({
     storage: z.array(z.string()).default([]),
     serving: z.string().optional(),
     lastUpdated: z.string().optional(),
+    featured: z.boolean().default(false)
+  })
+});
+
+const kitchenTools = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/kitchen-tools' }),
+  schema: z.object({
+    title: z.string(),
+    category: z.string().optional(),
+    description: z.string(),
+    image: z.string().optional(),
+    whyWeUseIt: z.string().optional(),
+    purchaseUrl: z.string().optional(),
+    affiliate: z.boolean().default(true),
     featured: z.boolean().default(false)
   })
 });
@@ -72,4 +88,4 @@ const garden = defineCollection({
   })
 });
 
-export const collections = { recipes, herbs, garden };
+export const collections = { recipes, kitchenTools, herbs, garden };

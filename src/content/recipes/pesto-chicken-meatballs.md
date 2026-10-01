@@ -10,7 +10,6 @@ yield: About 35 meatballs
 prepTime: About 10 minutes
 cookTime: About 20 minutes
 temperature: 425°F
-timerMinutes: 20
 ingredients:
   - ingredient: 2 lb ground chicken
   - ingredient: 1 small jar pesto — choose your favorite

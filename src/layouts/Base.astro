@@ -57,7 +57,16 @@ const { title = 'Fate Apothecary', description = 'Practical food, herbs, gardeni
 </nav>
 
     <main><slot /></main>
-    <footer class="site-footer shell">© 2023-2026 Fate Apothecary</footer>
+    <footer class="site-footer shell">
+      <div class="footer-inner">
+        <span>© 2023-2026 Fate Apothecary</span>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/contact/">Contact</a>
+          <span aria-hidden="true">•</span>
+          <a href="/privacy/">Privacy</a>
+        </nav>
+      </div>
+    </footer>
 
     <script>
       const menuButton = document.querySelector('#mobile-menu-button');

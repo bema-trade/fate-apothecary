@@ -9,22 +9,20 @@ export async function getStaticPaths() {
 
 const { recipe } = Astro.props;
 const r = recipe.data;
+const allTools = await getCollection('kitchenTools');
+const selectedTools = (r.tools ?? [])
+  .map((slug) => allTools.find((tool) => tool.id === slug))
+  .filter(Boolean);
+const hasAffiliateIngredientLinks = r.ingredients.some((ingredient) =>
+  typeof ingredient !== 'string' && Boolean(ingredient.externalUrl && ingredient.externalAffiliate)
+);
+const hasAffiliateTools = selectedTools.some((tool) => tool?.data.affiliate && tool?.data.purchaseUrl);
 ---
 <Base title={`${r.title} | Fate Apothecary`} description={r.description}>
   <article class="recipe-page shell">
     <div class="recipe-action-bar" aria-label="Recipe tools">
       <button id="wake-lock" class="recipe-action-button" type="button">Keep screen awake</button>
       <button id="print-recipe" class="recipe-action-button" type="button">Print recipe</button>
-      {r.timerMinutes && (
-        <button
-          id="recipe-timer"
-          class="recipe-action-button"
-          type="button"
-          data-timer-minutes={r.timerMinutes}
-        >
-          Start {r.timerMinutes} min timer
-        </button>
-      )}
     </div>
 
     <section class="recipe-intro">
@@ -48,14 +46,28 @@ const r = recipe.data;
     <section class="recipe-body">
       <aside class="ingredients-card">
         <h2>Ingredients</h2>
+        {hasAffiliateIngredientLinks && (
+          <p class="affiliate-disclosure">Some ingredient links are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.</p>
+        )}
         <ul>
           {r.ingredients.map((ingredient) => {
             const ingredientText = typeof ingredient === 'string' ? ingredient : ingredient.ingredient;
             const linkedRecipe = typeof ingredient === 'string' ? undefined : ingredient.linkedRecipe;
+            const externalUrl = typeof ingredient === 'string' ? undefined : ingredient.externalUrl;
+            const externalAffiliate = typeof ingredient === 'string' ? false : ingredient.externalAffiliate;
             return (
               <li>
                 {linkedRecipe ? (
                   <a class="ingredient-recipe-link" href={`/recipes/${linkedRecipe}/`}>{ingredientText}</a>
+                ) : externalUrl ? (
+                  <a
+                    class="ingredient-product-link"
+                    href={externalUrl}
+                    target="_blank"
+                    rel={externalAffiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+                  >
+                    {ingredientText}
+                  </a>
                 ) : ingredientText}
               </li>
             );
@@ -82,6 +94,45 @@ const r = recipe.data;
       </section>
     </section>
 
+    {selectedTools.length > 0 && (
+      <section class="recipe-tools-section">
+        <p class="eyebrow">Kitchen tools</p>
+        <h2>Tools we use</h2>
+        {hasAffiliateTools && (
+          <p class="affiliate-disclosure">Some tool links are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.</p>
+        )}
+        <div class="recipe-tool-grid">
+          {selectedTools.map((tool) => {
+            if (!tool) return null;
+            const t = tool.data;
+            return t.purchaseUrl ? (
+              <a
+                class="recipe-tool-card"
+                href={t.purchaseUrl}
+                target="_blank"
+                rel={t.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+              >
+                {t.image && <img class="recipe-tool-image" src={t.image} alt="" />}
+                <div>
+                  <h3>{t.title}</h3>
+                  <p>{t.whyWeUseIt || t.description}</p>
+                  <span class="tool-link-text">View tool ↗</span>
+                </div>
+              </a>
+            ) : (
+              <div class="recipe-tool-card">
+                {t.image && <img class="recipe-tool-image" src={t.image} alt="" />}
+                <div>
+                  <h3>{t.title}</h3>
+                  <p>{t.whyWeUseIt || t.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
     {(r.notes.length > 0 || r.storage.length > 0 || r.serving) && (
       <section class="recipe-extras">
         {r.notes.length > 0 && <div><h3>Notes & tips</h3><ul>{r.notes.map((n) => <li>{n}</li>)}</ul></div>}
@@ -97,7 +148,6 @@ const r = recipe.data;
     let wakeLock;
     const wakeButton = document.querySelector('#wake-lock');
     const printButton = document.querySelector('#print-recipe');
-    const timerButton = document.querySelector('#recipe-timer');
     const supported = 'wakeLock' in navigator;
 
     if (!supported && wakeButton) {
@@ -136,61 +186,5 @@ const r = recipe.data;
 
     printButton?.addEventListener('click', () => window.print());
 
-    if (timerButton instanceof HTMLButtonElement) {
-      const minutes = Number(timerButton.dataset.timerMinutes || 0);
-      const originalLabel = timerButton.textContent || 'Start timer';
-      let timerInterval;
-      let endTime;
-
-      const formatRemaining = (milliseconds) => {
-        const totalSeconds = Math.max(0, Math.ceil(milliseconds / 1000));
-        const mins = Math.floor(totalSeconds / 60);
-        const secs = totalSeconds % 60;
-        return `${mins}:${String(secs).padStart(2, '0')} remaining`;
-      };
-
-      const resetTimer = () => {
-        if (timerInterval) window.clearInterval(timerInterval);
-        timerInterval = undefined;
-        endTime = undefined;
-        timerButton.textContent = originalLabel;
-        timerButton.classList.remove('active');
-        timerButton.title = '';
-      };
-
-      const updateTimer = () => {
-        if (!endTime) return;
-        const remaining = endTime - Date.now();
-        if (remaining <= 0) {
-          if (timerInterval) window.clearInterval(timerInterval);
-          timerInterval = undefined;
-          endTime = undefined;
-          timerButton.textContent = 'Timer done!';
-          timerButton.classList.add('active');
-          timerButton.title = 'Tap to reset';
-          if ('vibrate' in navigator) navigator.vibrate?.([200, 120, 200]);
-          window.alert("Timer's up!");
-          return;
-        }
-        timerButton.textContent = formatRemaining(remaining);
-        timerButton.title = 'Tap to reset timer';
-      };
-
-      timerButton.addEventListener('click', () => {
-        if (!minutes) return;
-        if (endTime || timerButton.textContent === 'Timer done!') {
-          resetTimer();
-          return;
-        }
-        endTime = Date.now() + minutes * 60 * 1000;
-        timerButton.classList.add('active');
-        updateTimer();
-        timerInterval = window.setInterval(updateTimer, 1000);
-      });
-
-      document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible' && endTime) updateTimer();
-      });
-    }
   </script>
 </Base>

@@ -9,7 +9,6 @@ yield: 3 cups
 prepTime: 5 minutes
 cookTime: 22 minutes
 temperature: 300°
-timerMinutes: 22
 ingredients:
   - ingredient: 1 egg white
   - ingredient: 3 tablespoons everything seasoning

@@ -5,6 +5,9 @@ import { getCollection } from 'astro:content';
 const recipes = await getCollection('recipes');
 const herbs = await getCollection('herbs');
 const garden = await getCollection('garden');
+const kitchenTools = await getCollection('kitchenTools');
+
+const ingredientText = (ingredient) => typeof ingredient === 'string' ? ingredient : ingredient.ingredient;
 
 const items = [
   ...recipes.map((item) => ({
@@ -13,7 +16,14 @@ const items = [
     tags: item.data.tags,
     type: 'Recipe',
     url: `/recipes/${item.id}/`,
-    keywords: [item.data.category, ...item.data.ingredients, item.data.useYourHeart, ...item.data.notes, ...item.data.storage, item.data.serving].filter(Boolean).join(' ')
+    keywords: [
+      item.data.category,
+      ...item.data.ingredients.map(ingredientText),
+      item.data.useYourHeart,
+      ...item.data.notes,
+      ...item.data.storage,
+      item.data.serving
+    ].filter(Boolean).join(' ')
   })),
   ...herbs.map((item) => ({
     title: item.data.title,
@@ -30,10 +40,18 @@ const items = [
     type: 'Garden',
     url: `/garden/${item.id}/`,
     keywords: [item.data.season, ...item.data.whatYouNeed, ...item.data.steps.flatMap((step) => [step.title, step.text]), item.data.harvest, ...item.data.notes].filter(Boolean).join(' ')
+  })),
+  ...kitchenTools.map((item) => ({
+    title: item.data.title,
+    description: item.data.description,
+    tags: [item.data.category].filter(Boolean),
+    type: 'Kitchen Tool',
+    url: `/kitchen-tools/#${item.id}`,
+    keywords: [item.data.category, item.data.whyWeUseIt].filter(Boolean).join(' ')
   }))
 ];
 ---
-<Base title="Search | Fate Apothecary" description="Search recipes, herbs, and garden resources from Fate Apothecary.">
+<Base title="Search | Fate Apothecary" description="Search recipes, herbs, garden resources, and kitchen tools from Fate Apothecary.">
   <section class="shell search-page">
     <p class="eyebrow">Find what you need</p>
     <h1>Search</h1>
@@ -48,6 +66,7 @@ const items = [
       <button class="search-filter" type="button" data-filter="recipe">Recipes</button>
       <button class="search-filter" type="button" data-filter="herb">Herbs</button>
       <button class="search-filter" type="button" data-filter="garden">Garden</button>
+      <button class="search-filter" type="button" data-filter="kitchen tool">Kitchen Tools</button>
     </div>
 
     <p id="search-summary" class="search-summary"></p>

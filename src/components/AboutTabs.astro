@@ -1,0 +1,19 @@
+---
+const { active = 'about' } = Astro.props;
+const tabs = [
+  { key: 'about', label: 'About Fate Apothecary', href: '/about/' },
+  { key: 'tools', label: 'Kitchen Tools', href: '/kitchen-tools/' },
+  { key: 'contact', label: 'Contact', href: '/contact/' }
+];
+---
+<nav class="about-tabs" aria-label="About Fate Apothecary">
+  {tabs.map((tab) => (
+    <a
+      href={tab.href}
+      class={active === tab.key ? 'about-tab active' : 'about-tab'}
+      aria-current={active === tab.key ? 'page' : undefined}
+    >
+      {tab.label}
+    </a>
+  ))}
+</nav>

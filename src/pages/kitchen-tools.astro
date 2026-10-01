@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import AboutTabs from '../components/AboutTabs.astro';
+import { getCollection } from 'astro:content';
+
+const tools = (await getCollection('kitchenTools')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const categories = [...new Set(tools.map((tool) => tool.data.category || 'Other'))].sort();
+---
+<Base title="Kitchen Tools | Fate Apothecary" description="Kitchen tools and equipment we actually use and recommend at Fate Apothecary.">
+  <section class="about-page shell kitchen-tools-page">
+    <AboutTabs active="tools" />
+
+    <p class="eyebrow">Kitchen tools</p>
+    <h1>Things we actually use.</h1>
+    <p class="listing-lede">
+      No giant catalog of random gadgets. Just the tools that earn space in our kitchen and show up in the things we actually make.
+    </p>
+
+    <aside class="about-note affiliate-site-note">
+      <p class="eyebrow">A quick note about links</p>
+      <p>
+        Some links on this page are affiliate links, which means Fate Apothecary may earn a small commission if you purchase through them. It never costs you extra, and we only share things we actually use or genuinely recommend.
+      </p>
+    </aside>
+
+    {tools.length > 0 ? (
+      <div class="tool-category-list">
+        {categories.map((category) => (
+          <section class="tool-category">
+            <h2>{category}</h2>
+            <div class="tool-grid">
+              {tools.filter((tool) => (tool.data.category || 'Other') === category).map((tool) => {
+                const t = tool.data;
+                return t.purchaseUrl ? (
+                  <a
+                    id={tool.id}
+                    class="tool-card"
+                    href={t.purchaseUrl}
+                    target="_blank"
+                    rel={t.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+                  >
+                    {t.image ? <img class="tool-card-image" src={t.image} alt={t.title} /> : <div class="tool-card-placeholder">{t.title}</div>}
+                    <div class="tool-card-copy">
+                      <h3>{t.title}</h3>
+                      <p>{t.description}</p>
+                      {t.whyWeUseIt && <p class="tool-why"><strong>Why we use it:</strong> {t.whyWeUseIt}</p>}
+                      <span class="tool-link-text">View tool ↗</span>
+                    </div>
+                  </a>
+                ) : (
+                  <article id={tool.id} class="tool-card">
+                    {t.image ? <img class="tool-card-image" src={t.image} alt={t.title} /> : <div class="tool-card-placeholder">{t.title}</div>}
+                    <div class="tool-card-copy">
+                      <h3>{t.title}</h3>
+                      <p>{t.description}</p>
+                      {t.whyWeUseIt && <p class="tool-why"><strong>Why we use it:</strong> {t.whyWeUseIt}</p>}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <h2>The shelf is still being stocked.</h2>
+        <p>Kitchen tools will show up here as we add the things we actually use.</p>
+      </div>
+    )}
+  </section>
+</Base>

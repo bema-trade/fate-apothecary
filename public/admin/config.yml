@@ -37,7 +37,6 @@ collections:
       - { label: Prep time, name: prepTime, widget: string, required: false }
       - { label: Cook time, name: cookTime, widget: string, required: false }
       - { label: Temperature, name: temperature, widget: string, required: false }
-      - { label: Timer (minutes), name: timerMinutes, widget: number, value_type: int, min: 1, required: false, hint: "Optional. Adds a timer button to the top of the recipe." }
       - label: Ingredients
         name: ingredients
         widget: list
@@ -47,7 +46,7 @@ collections:
           - label: Ingredient
             name: ingredient
             widget: string
-          - label: Linked recipe
+          - label: Linked Fate Apothecary recipe
             name: linkedRecipe
             widget: relation
             collection: recipes
@@ -55,7 +54,28 @@ collections:
             display_fields: [title]
             value_field: "{{slug}}"
             required: false
-            hint: "Optional. Select an existing Fate recipe if this ingredient should link to it."
+            hint: "Optional. Use this when the ingredient is another Fate Apothecary recipe."
+          - label: Product / external link
+            name: externalUrl
+            widget: string
+            required: false
+            hint: "Optional. Paste a full URL for a specific ingredient or product. Use this OR Linked Fate Apothecary recipe, not both."
+          - label: Affiliate link?
+            name: externalAffiliate
+            widget: boolean
+            default: false
+            required: false
+            hint: "Turn this on if Fate Apothecary may earn a commission from the external link."
+      - label: Tools we use
+        name: tools
+        widget: relation
+        collection: kitchen_tools
+        search_fields: [title, category, description]
+        display_fields: [title]
+        value_field: "{{slug}}"
+        multiple: true
+        required: false
+        hint: "Optional. Choose any Kitchen Tools used for this recipe."
       - label: Instructions
         name: instructions
         widget: list
@@ -86,6 +106,27 @@ collections:
           widget: string
       - { label: How we eat it, name: serving, widget: text, required: false }
       - { label: Last updated, name: lastUpdated, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+
+  - name: kitchen_tools
+    label: Kitchen Tools
+    folder: src/content/kitchen-tools
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Tool name, name: title, widget: string }
+      - label: Category
+        name: category
+        widget: select
+        required: false
+        options: [Appliances, Cookware, Prep tools, Baking, Storage, Serving, Grill & outdoor, Other]
+      - { label: Short description, name: description, widget: text }
+      - { label: Photo, name: image, widget: image, required: false }
+      - { label: Why we use it, name: whyWeUseIt, widget: text, required: false }
+      - { label: Purchase / affiliate link, name: purchaseUrl, widget: string, required: false, hint: "Paste the full product URL. This can be an affiliate link." }
+      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: true, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false }
 
   - name: herbs

@@ -1,26 +1,50 @@
-# Fate Apothecary v11
+# Fate Apothecary v12
 
-Built from the current GitHub export supplied after v10, including the latest Ranch Seasoning Mix edits.
+Built from the current GitHub export supplied after v11, preserving all current recipes and site edits.
 
-## v11 changes
+## v12 changes
 
-- Upgraded recipe **Ingredients** in Decap from plain text entries to repeatable ingredient records.
-- Each ingredient now has an optional **Linked recipe** field.
-- The Linked recipe field searches the existing Recipes collection by title/description and stores that recipe's slug.
-- On the live recipe page, linked ingredients render as subtle clickable links to the selected Fate recipe.
-- Existing recipe ingredient data was migrated into the new structure so Pesto Chicken Meatballs and Ranch Seasoning Mix remain editable in Decap without re-entry.
-- The Astro content schema remains backward-compatible with legacy plain-text ingredient entries as a safety net.
-- All v10 recipe tools (screen-awake, print, optional timer), current site copy, footer, mobile navigation, Decap Turbo settings, and content are preserved.
+### About area
+- Added a shared tab-style subnavigation for:
+  - About Fate Apothecary
+  - Kitchen Tools
+  - Contact
+- Kept ABOUT as the only top-level nav item; Kitchen Tools and Contact do not clutter the main navigation.
+- Added Contact and Privacy links to the footer.
+- Added a starter Privacy page.
 
-## Example
+### Kitchen Tools + affiliate links
+- Added a **Kitchen Tools** collection to Decap.
+- Each tool can include a category, photo, description, “Why we use it,” purchase/affiliate URL, and affiliate toggle.
+- Added a public `/kitchen-tools/` page that automatically displays the tools entered in Decap.
+- Added a clear affiliate disclosure to the Kitchen Tools page.
+- Kitchen Tools are included in site-wide search.
 
-For a future Ranch Dip recipe, enter an ingredient such as:
+### Recipe linking upgrades
+- Recipes now have an optional **Tools we use** selector that searches the Kitchen Tools collection.
+- Selected tools automatically appear on the recipe page.
+- Ingredient entries now support an optional **Product / external link** in addition to the existing linked Fate Apothecary recipe field.
+- Ingredient external links can be marked as affiliate links.
+- Recipe pages automatically show a small disclosure near affiliate ingredient/tool links when applicable.
+- Existing recipe ingredient data remains compatible and no current recipe content was removed.
 
-- **Ingredient:** `2 tablespoons ranch seasoning mix`
-- **Linked recipe:** `Ranch Seasoning Mix`
+### Contact
+- Added `/contact/` and connected it to the About-area tabs and footer.
+- The page structure and medical-advice boundary are in place.
+- The actual contact form is intentionally **not wired yet** because this repo does not currently contain a confirmed Fate Apothecary email destination or mail Worker/binding. Once that destination is ready, the page can be connected without changing the site structure again.
 
-The published ingredient will link directly to the Ranch Seasoning Mix recipe. Leave **Linked recipe** blank for ordinary ingredients.
+## Suggested workflow
 
-## Deployment
+1. Upload the contents of this folder to the existing `bema-trade/fate-apothecary` GitHub repository.
+2. Commit to `main` and wait for Cloudflare Pages to show the new production deployment.
+3. Open `/admin/`.
+4. Add Kitchen Tools first as you encounter them.
+5. While editing recipes, use:
+   - **Linked Fate Apothecary recipe** for homemade components such as Ranch Seasoning Mix.
+   - **Product / external link** for specific ingredients/products.
+   - **Tools we use** for reusable kitchen equipment.
 
-Upload the contents of this folder to the existing `bema-trade/fate-apothecary` GitHub repository and commit to `main`. Cloudflare Pages should rebuild automatically.
+Cloudflare Pages should rebuild automatically after each Decap/GitHub content change.
+## v12.1
+Removed the built-in recipe timer from both recipe pages and the Decap CMS. Keep Screen Awake and Print Recipe remain.
+
