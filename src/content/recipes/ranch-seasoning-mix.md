@@ -3,7 +3,9 @@ title: Ranch Seasoning Mix
 description: A pantry staple for ranch dressing, dips, roasted veggies, and
   anything that needs a little extra flavor.
 category: Pantry staple
-tags: []
+tags:
+  - Gluten Free
+  - Dairy Free
 ingredients:
   - 1 cup dried parsley
   - 2¾ tablespoons dried dill weed
@@ -18,8 +20,9 @@ instructions:
       incorporate evenly.
   - title: Store
     text: Pour the blended mix into a clean, dry jar with an airtight lid.
-useYourHeart: Jazz up your food with a little sprinkle of ranch seasoning!
-notes: []
+useYourHeart: ""
+notes:
+  - Jazz up your food with a little sprinkle of ranch seasoning!
 storage:
   - Store in an airtight jar with the rest of your kitchen herbs and spices.
 serving: "To make ranch dip, we use a half-and-half mix of Daisy sour cream and
@@ -27,5 +30,5 @@ serving: "To make ranch dip, we use a half-and-half mix of Daisy sour cream and
   whisper from your soul: \"that's enough, my child.\" If you're not sure you
   can hear your ancestors, add the seasoning until it looks like ranch.  You can
   always add more but it's a little harder to take it away."
-featured: false
+featured: true
 ---
