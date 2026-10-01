@@ -23,6 +23,8 @@ instructions:
 useYourHeart: ""
 notes:
   - Jazz up your food with a little sprinkle of ranch seasoning!
+  - Sprinkle on veggies before roasting for a fun healthy twist.
+  - Ranch grilled chicken is the bees knees...
 storage:
   - Store in an airtight jar with the rest of your kitchen herbs and spices.
 serving: "To make ranch dip, we use a half-and-half mix of Daisy sour cream and
