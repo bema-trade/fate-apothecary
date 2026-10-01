@@ -297,7 +297,7 @@ h3 { font-size: 1.5rem; }
 
   .search-form { width: 100%; }
   .search-form .button { padding-inline: 14px; }
-  .about-page { padding-top: 54px; }
+  .about-page, .simple-page { padding-top: 54px; }
 }
 
 @media (max-width: 430px) {
