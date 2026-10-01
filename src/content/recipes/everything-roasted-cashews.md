@@ -6,9 +6,9 @@ tags:
   - gluten free
   - dairy free
 yield: 3 cups
-prepTime: "5"
-cookTime: "22"
-temperature: "300"
+prepTime: 5 minutes
+cookTime: 22 minutes
+temperature: 300°
 timerMinutes: 22
 ingredients:
   - ingredient: 1 egg white
@@ -20,12 +20,11 @@ instructions:
     text: Get your oven heating up to 300°.  Grab a rimmed cookie sheet and line it
       with a piece of parchment paper.  Set this aside while you prepare the
       cashews.
-  - title: Beat the egg white.
+  - title: Prep
     text: Using a hand mixer, beat the egg white until it is foamy and no longer
-      translucent.
-  - title: Mix it up.
-    text: Add the cashews, everything seasoning, and monkfruit and toss until well
-      combined.  The seasonings should stick pretty well to the cashews.
+      translucent. Add the cashews, everything seasoning, and monkfruit and stir
+      until well combined.  The seasonings should stick pretty well to the
+      cashews.
   - title: Time to roast!
     text: Pour your seasoned cashews onto the prepared cookie sheet. Spread the nuts
       out so they're in a single layer and you've given them as much room as
