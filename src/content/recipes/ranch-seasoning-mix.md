@@ -6,6 +6,7 @@ category: Pantry staple
 tags:
   - Gluten Free
   - Dairy Free
+timerMinutes: 2
 ingredients:
   - ingredient: 1 cup dried parsley
   - ingredient: 2¾ tablespoons dried dill weed
