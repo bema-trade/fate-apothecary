@@ -13,6 +13,7 @@ const recipes = defineCollection({
     prepTime: z.string().optional(),
     cookTime: z.string().optional(),
     temperature: z.string().optional(),
+    timerMinutes: z.number().int().positive().optional(),
     ingredients: z.array(z.string()),
     instructions: z.array(z.object({
       title: z.string(),

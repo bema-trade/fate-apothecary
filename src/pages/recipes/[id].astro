@@ -12,6 +12,21 @@ const r = recipe.data;
 ---
 <Base title={`${r.title} | Fate Apothecary`} description={r.description}>
   <article class="recipe-page shell">
+    <div class="recipe-action-bar" aria-label="Recipe tools">
+      <button id="wake-lock" class="recipe-action-button" type="button">Keep screen awake</button>
+      <button id="print-recipe" class="recipe-action-button" type="button">Print recipe</button>
+      {r.timerMinutes && (
+        <button
+          id="recipe-timer"
+          class="recipe-action-button"
+          type="button"
+          data-timer-minutes={r.timerMinutes}
+        >
+          Start {r.timerMinutes} min timer
+        </button>
+      )}
+    </div>
+
     <section class="recipe-intro">
       <div class="recipe-intro-copy">
         <p class="eyebrow">Recipes{r.category ? ` · ${r.category}` : ``}</p>
@@ -22,7 +37,7 @@ const r = recipe.data;
           {r.yield && <div><strong>{r.yield}</strong><small>Yield</small></div>}
           {r.prepTime && <div><strong>{r.prepTime}</strong><small>Prep</small></div>}
           {r.cookTime && <div><strong>{r.cookTime}</strong><small>Cook</small></div>}
-          {r.temperature && <div><strong>{r.temperature}</strong><small>Air fryer</small></div>}
+          {r.temperature && <div><strong>{r.temperature}</strong><small>Temperature</small></div>}
         </div>
       </div>
       {r.image ? <img class="recipe-hero-image" src={r.image} alt={r.title} /> : <div class="recipe-photo-placeholder"><span>Food photo goes here</span></div>}
@@ -55,43 +70,44 @@ const r = recipe.data;
       </section>
     </section>
 
-    <section class="recipe-extras">
-      {r.notes.length > 0 && <div><h3>Notes & tips</h3><ul>{r.notes.map((n) => <li>{n}</li>)}</ul></div>}
-      {r.storage.length > 0 && <div><h3>Storage</h3><ul>{r.storage.map((n) => <li>{n}</li>)}</ul></div>}
-      {r.serving && <div><h3>How we eat them</h3><p>{r.serving}</p></div>}
-    </section>
+    {(r.notes.length > 0 || r.storage.length > 0 || r.serving) && (
+      <section class="recipe-extras">
+        {r.notes.length > 0 && <div><h3>Notes & tips</h3><ul>{r.notes.map((n) => <li>{n}</li>)}</ul></div>}
+        {r.storage.length > 0 && <div><h3>Storage</h3><ul>{r.storage.map((n) => <li>{n}</li>)}</ul></div>}
+        {r.serving && <div><h3>How we eat it</h3><p>{r.serving}</p></div>}
+      </section>
+    )}
 
-    <div class="recipe-tools">
-      <button id="wake-lock" class="button button-secondary" type="button">Keep screen awake</button>
-      {r.lastUpdated && <p>Last updated {r.lastUpdated}</p>}
-    </div>
+    {r.lastUpdated && <p class="recipe-updated">Last updated {r.lastUpdated}</p>}
   </article>
 
   <script>
     let wakeLock;
-    const button = document.querySelector('#wake-lock');
+    const wakeButton = document.querySelector('#wake-lock');
+    const printButton = document.querySelector('#print-recipe');
+    const timerButton = document.querySelector('#recipe-timer');
     const supported = 'wakeLock' in navigator;
 
-    if (!supported && button) {
-      button.setAttribute('hidden', '');
+    if (!supported && wakeButton) {
+      wakeButton.setAttribute('hidden', '');
     }
 
     async function requestWakeLock() {
-      if (!button || !supported) return;
+      if (!wakeButton || !supported) return;
       try {
         wakeLock = await navigator.wakeLock.request('screen');
-        button.textContent = 'Screen awake · on';
-        button.classList.add('active');
+        wakeButton.textContent = 'Screen awake · on';
+        wakeButton.classList.add('active');
         wakeLock.addEventListener('release', () => {
-          button.textContent = 'Keep screen awake';
-          button.classList.remove('active');
+          wakeButton.textContent = 'Keep screen awake';
+          wakeButton.classList.remove('active');
         });
       } catch {
-        button.textContent = 'Couldn’t keep screen awake';
+        wakeButton.textContent = 'Couldn’t keep screen awake';
       }
     }
 
-    button?.addEventListener('click', async () => {
+    wakeButton?.addEventListener('click', async () => {
       if (wakeLock) {
         await wakeLock.release();
         wakeLock = undefined;
@@ -101,9 +117,68 @@ const r = recipe.data;
     });
 
     document.addEventListener('visibilitychange', async () => {
-      if (document.visibilityState === 'visible' && button?.classList.contains('active') && !wakeLock) {
+      if (document.visibilityState === 'visible' && wakeButton?.classList.contains('active') && !wakeLock) {
         await requestWakeLock();
       }
     });
+
+    printButton?.addEventListener('click', () => window.print());
+
+    if (timerButton instanceof HTMLButtonElement) {
+      const minutes = Number(timerButton.dataset.timerMinutes || 0);
+      const originalLabel = timerButton.textContent || 'Start timer';
+      let timerInterval;
+      let endTime;
+
+      const formatRemaining = (milliseconds) => {
+        const totalSeconds = Math.max(0, Math.ceil(milliseconds / 1000));
+        const mins = Math.floor(totalSeconds / 60);
+        const secs = totalSeconds % 60;
+        return `${mins}:${String(secs).padStart(2, '0')} remaining`;
+      };
+
+      const resetTimer = () => {
+        if (timerInterval) window.clearInterval(timerInterval);
+        timerInterval = undefined;
+        endTime = undefined;
+        timerButton.textContent = originalLabel;
+        timerButton.classList.remove('active');
+        timerButton.title = '';
+      };
+
+      const updateTimer = () => {
+        if (!endTime) return;
+        const remaining = endTime - Date.now();
+        if (remaining <= 0) {
+          if (timerInterval) window.clearInterval(timerInterval);
+          timerInterval = undefined;
+          endTime = undefined;
+          timerButton.textContent = 'Timer done!';
+          timerButton.classList.add('active');
+          timerButton.title = 'Tap to reset';
+          if ('vibrate' in navigator) navigator.vibrate?.([200, 120, 200]);
+          window.alert("Timer's up!");
+          return;
+        }
+        timerButton.textContent = formatRemaining(remaining);
+        timerButton.title = 'Tap to reset timer';
+      };
+
+      timerButton.addEventListener('click', () => {
+        if (!minutes) return;
+        if (endTime || timerButton.textContent === 'Timer done!') {
+          resetTimer();
+          return;
+        }
+        endTime = Date.now() + minutes * 60 * 1000;
+        timerButton.classList.add('active');
+        updateTimer();
+        timerInterval = window.setInterval(updateTimer, 1000);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && endTime) updateTimer();
+      });
+    }
   </script>
 </Base>

@@ -37,6 +37,7 @@ collections:
       - { label: Prep time, name: prepTime, widget: string, required: false }
       - { label: Cook time, name: cookTime, widget: string, required: false }
       - { label: Temperature, name: temperature, widget: string, required: false }
+      - { label: Timer (minutes), name: timerMinutes, widget: number, value_type: int, min: 1, required: false, hint: "Optional. Adds a timer button to the top of the recipe." }
       - label: Ingredients
         name: ingredients
         widget: list

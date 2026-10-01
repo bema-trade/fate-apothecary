@@ -1,36 +1,24 @@
-# Fate Apothecary v9
+# Fate Apothecary v10
 
-A Cloudflare Pages + Astro + Decap Turbo site for Fate Apothecary.
+Built from the current GitHub export supplied by Beth (v8.2.6.1 lineage with later live edits preserved).
 
-## What changed in v9
+## v10 changes
 
-- Fixed Decap list fields so entries such as recipe ingredients can be typed as normal phrases with spaces.
-- Ingredients now use a repeatable one-line text field (`+ Add Ingredient`) instead of the compact tag-style list control.
-- Applied the same mobile-friendly repeatable text-field treatment to other phrase-based lists:
-  - Recipe tags
-  - Recipe notes & tips
-  - Recipe storage notes
-  - Herb tags
-  - Herb culinary uses
-  - Garden tags
-  - Garden "What you need" items
-  - Garden notes & tips
-- Preserved the current site content, styling, About/footer edits, Decap Turbo configuration, and Turbo site ID from the uploaded v8.2.6.1 build.
+- Normalized top spacing and interior-page title sizing across Recipes, Herbs, Garden, Search, About, Support, Thank You, and resource detail pages.
+- Made About, Support, and Thank You use the same content width and paragraph spacing.
+- Moved **Keep screen awake** to the top of recipe pages.
+- Added a **Print recipe** button with print-friendly CSS that removes site navigation, footer, buttons, and large recipe photography.
+- Added an optional **Timer (minutes)** field to the Decap recipe editor.
+- Recipes with a timer value automatically show a timer button at the top of the page.
+- Pesto Chicken Meatballs is set to a 20-minute timer as an example.
+- Existing content, About copy, Support copy/Square link, Thank You page, footer, Decap Turbo settings, Ranch Seasoning Mix, and mobile navigation are preserved.
 
-## Deploy
+## Recipe timer
 
-Upload the contents of this folder to the root of the `bema-trade/fate-apothecary` GitHub repository and commit. Cloudflare Pages should deploy the new commit automatically.
+In `/admin`, enter a whole number in **Timer (minutes)** only when a recipe benefits from a single primary timer. Leave it blank for recipes that do not need one.
 
-Cloudflare Pages build settings:
+The timer button counts down in the page. Tapping it while it is running resets it. When time is up it shows an alert and, where supported, vibrates briefly.
 
-- Production branch: `main`
-- Build command: `npm run build`
-- Build output: `dist`
+## Deployment
 
-## Admin
-
-The admin lives at `/admin/` and uses Decap Turbo.
-
-Current Turbo site ID:
-
-`b82e48e5-869b-4b45-8e97-b16bac7822f3`
+Upload the contents of this folder to the existing `bema-trade/fate-apothecary` GitHub repository and commit to `main`. Cloudflare Pages should then rebuild automatically.
