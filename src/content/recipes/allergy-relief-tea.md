@@ -21,6 +21,9 @@ ingredients:
     ingredient: hot water
   - externalAffiliate: false
     ingredient: local raw honey, to taste
+tools:
+  - tea-strainers
+  - french-press
 instructions:
   - title: Start the brew.
     text: Add the dried herbs to a tea strainer. Place the strainer and dried orange
