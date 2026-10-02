@@ -21,6 +21,18 @@ ingredients:
     ingredient: hot water
   - externalAffiliate: false
     ingredient: local raw honey, to taste
+instructions:
+  - title: Start the brew.
+    text: Add the dried herbs to a tea strainer. Place the strainer and dried orange
+      slice (if you're using it) in your mug of choice.  Top with hot
+      water.  Cover with a small plate and allow the tea to steep for 10
+      minutes.
+  - title: Drain & sweeten.
+    text: Remove the cover and take the strainer out.  Stir in local to you, raw
+      honey until your tea is sweet to your liking.
+  - title: Sip & enjoy.
+    text: Sip slowly, it could still be hot.  You'll start to feel relief in a just
+      a few minutes.
 useYourHeart: We also add a slice of dried cara cara orange to our allergy
   tea.  It's optional but extremely delicious.
 notes:
