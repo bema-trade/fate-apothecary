@@ -41,6 +41,9 @@ useYourHeart: We also add a slice of dried cara cara orange to our allergy
 notes:
   - When the whole family is suffering, I multiply the recipe and make this tea
     in a French press.
-storage: []
-featured: false
+storage:
+  - You can make a large batch of the herb mix (keep your ratios the same!) and
+    scoop a couple teaspoons of the mix when you're ready.  Store your mix in an
+    airtight jar in a dark, cool place.
+featured: true
 ---
