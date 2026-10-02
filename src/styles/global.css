@@ -366,6 +366,13 @@ h3 { font-size: 1.5rem; }
   .tag-row span { font-size: .64rem; }
 }
 
+@media (max-width: 700px) {
+  .footer-inner {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
 
 /* Print recipes */
 @media print {
@@ -434,6 +441,10 @@ h3 { font-size: 1.5rem; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .footer-links { display: flex; align-items: center; gap: 10px; }
 .footer-links a:hover { color: var(--cream); }
+.footer-social {display: flex; align-items: center; gap: 14px; }
+.footer-social a {display: inline-flex; align-items: center; justify-content: center; opacity: 0.85; transition: opacity 0.2s ease, transform 0.2s ease;}
+.footer-social a:hover, .footer-social a:focus-visible {opacity: 1; transform: translateY(-1px);}
+.footer-social img {width: 22px; height: 22px; object-fit: contain; display: block;}
 
 /* Affiliate links and recipe tools */
 .ingredient-product-link {
