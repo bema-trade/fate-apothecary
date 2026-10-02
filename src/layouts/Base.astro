@@ -60,16 +60,37 @@ const { title = 'Fate Apothecary', description = 'Practical food, herbs, gardeni
 </nav>
 
     <main><slot /></main>
-    <footer class="site-footer shell">
-      <div class="footer-inner">
-        <span>© 2023-2026 Fate Apothecary</span>
-        <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/contact/">Contact</a>
-          <span aria-hidden="true">•</span>
-          <a href="/privacy/">Privacy</a>
-        </nav>
-      </div>
-    </footer>
+<footer class="site-footer shell">
+  <div class="footer-inner">
+    <span>© 2023-2026 Fate Apothecary</span>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/contact/">Contact</a>
+      <span aria-hidden="true">•</span>
+      <a href="/privacy/">Privacy</a>
+    </nav>
+
+    <div class="footer-social" aria-label="Fate Apothecary social links">
+      <a
+        href="https://www.instagram.com/fateapothecary/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Fate Apothecary on Instagram"
+      >
+        <img src="/images/instagram-white-icon.webp" alt="" />
+      </a>
+
+      <a
+        href="https://www.facebook.com/FateApothecary/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Fate Apothecary on Facebook"
+      >
+        <img src="/images/facebook-white-icon.webp" alt="" />
+      </a>
+    </div>
+  </div>
+</footer>
 
     <script>
       const menuButton = document.querySelector('#mobile-menu-button');
