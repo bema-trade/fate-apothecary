@@ -24,7 +24,7 @@ ingredients:
   - externalAffiliate: false
     ingredient: 1 teaspoon dried oregano
   - externalAffiliate: false
-    ingredient: salt & pepper
+    ingredient: salt & pepper to taste
 tools:
   - instant-pot
 instructions:
