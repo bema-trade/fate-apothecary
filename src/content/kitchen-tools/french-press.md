@@ -1,5 +1,5 @@
 ---
-title: French press
+title: French Press
 category: Serving
 description: Great for larger batches of herbal tea or tomorrow's allotment of
   cold brew coffee.
