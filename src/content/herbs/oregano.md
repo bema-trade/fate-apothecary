@@ -27,5 +27,7 @@ storage: Fresh oregano retains more valuable nutrients and oils that dried loses
   a plastic bag left open. Fresh could last about 7-14 days this way.  Store dry
   oregano in an airtight jar in a cool, dark place.
 cautions: ""
+resources:
+  - the-lost-book-of-herbal-remedies
 featured: true
 ---
