@@ -1,52 +1,54 @@
-# Fate Apothecary v13
+# Fate Apothecary v15
 
-Built from the current GitHub export supplied after v12.1, preserving all current recipes, Kitchen Tools, Decap content, and direct site edits.
+Built from the fresh GitHub export supplied on October 4, 2026. Existing recipes, herbs (including Dill, Garlic, Oregano, and Thyme), Kitchen Tools, images, contact form, analytics, footer/social links, and all other current content are preserved.
 
-## v13 changes
+## v15 changes
 
-### Consistent About-area widths
-- **About Fate Apothecary**, **Kitchen Tools**, and **Contact** now share the same 1000px page container.
-- This keeps the three tabbed pages visually aligned while remaining narrower than the 1180px main site navigation/content width.
-- Support and Thank You remain intentionally narrower simple-content pages.
+### Herb profile redesign
+Herb pages are no longer one long stack of equally styled text sections.
 
-### Contact form
-- `/contact/` now has a working Name / Email / Subject / Message form.
-- Submissions post to `/api/contact` through a Cloudflare Pages Function.
-- The Function sends mail through Cloudflare Email Sending.
-- Visitor email is used as Reply-To, so replying in Thunderbird replies directly to the visitor.
-- A hidden honeypot field provides lightweight bot filtering without adding a CAPTCHA.
-- The page also displays `hello@fateapothecary.com` as a direct-contact option.
+- Botanical name is styled separately beneath the herb name.
+- Flavor & aroma, In the kitchen, Growing it, and Storage & preserving now appear in a responsive card grid.
+- Traditional use notes receive a wider editorial section so longer writing has room to breathe.
+- Things to know is a distinct safety callout and always includes the site-wide educational herb disclaimer.
+- The layout collapses cleanly to one column on phones/tablets.
+- Herb listing cards now treat the existing `description` field as the botanical name, matching how the current content is actually being entered.
 
-### Favicon
-- Replaced the old dark favicon with the supplied Fate Apothecary circular light-background logo so it stays visible in both light and dark browser chrome.
-- Added 16px, 32px, Apple Touch, 192px, 512px, and multi-size `.ico` versions.
-- Favicon URLs include a v13 cache-buster so browsers are more likely to pick up the new artwork immediately.
+### Books & resources for Herb profiles
+A reusable **Herb Books & Resources** collection is now available in Decap CMS.
 
-### Everything from v12 / v12.1 remains
-- About-area tabs
-- Kitchen Tools collection and recipe tool linking
-- Recipe-to-recipe and ingredient/product links
-- Affiliate disclosures
-- Contact and Privacy footer links
-- Keep Screen Awake + Print Recipe
-- Built-in timer remains removed
+Each resource can store:
+- title
+- author / creator
+- short note about why you use it
+- cover / image
+- external link
+- affiliate-link toggle
 
-## Contact form Cloudflare setup
+Each Herb profile now has a **Books & resources I use** relation field. Add a book/resource once in the new collection, then select it on as many herb profiles as needed. Selected resources render as cards near the bottom of the public Herb page. Affiliate resources automatically receive the existing commission disclosure and sponsored-link markup.
 
-After v13 deploys, add these variables to the **Fate Apothecary Pages project** for the **Production** environment:
+### Related herbs
+Each Herb profile now has a **Related herbs** multi-select relation field in Decap. Selected herbs appear as linked cards under **Keep exploring** on the public profile.
 
-- `CF_ACCOUNT_ID` — your Cloudflare account ID. A normal text variable is fine.
-- `CF_EMAIL_TOKEN` — a Cloudflare API token with **Email Sending: Edit** permission. Store this as an encrypted Secret. You can reuse the working Email Sending token already used for SMTP if you want.
-- `CONTACT_TO` — the real destination inbox that currently receives forwarded Fate Apothecary mail. Store it as an encrypted Secret if you prefer to keep that address private.
+### CMS wording cleanup
+The Herb field previously labeled **Short description** is now labeled **Botanical name**. The underlying field name remains `description` so all existing herb entries continue working without migration or re-entry.
 
-The Function sends from `hello@fateapothecary.com` directly to `CONTACT_TO`, with the visitor's address as Reply-To.
+### Favicon cache refresh
+The existing favicon artwork/files are preserved; the favicon query-string cache buster is updated from `v=13` to `v=15` so browsers are prompted to fetch the newer favicon files you already replaced in GitHub.
 
-After adding or changing Pages environment variables, **redeploy the Pages project** so the Function receives them.
+### Decap Turbo session handling
+The site was already running Decap's current Turbo beta build when the repeated `Supabase request failed: JWT expired` errors occurred. Decap's own Turbo documentation says those short-lived sessions are supposed to refresh automatically in the background, so this behavior is upstream of the Astro site rather than something the Herb form is causing.
 
-## Suggested deployment workflow
+For v15, `/admin/` now tracks Decap's official `@beta` channel instead of pinning one beta build. That means Turbo authentication/session fixes can arrive without requiring another Fate Apothecary code release. Decap's existing local form-recovery protection remains unchanged (and has already successfully recovered entries after the JWT error).
 
-1. Upload the contents of this folder to the existing `bema-trade/fate-apothecary` GitHub repository.
-2. Commit to `main`.
-3. Wait for Cloudflare Pages to show the new production deployment.
-4. Add the three contact-form environment variables above and redeploy.
-5. Test `/contact/` by sending yourself a message and then replying to it from Thunderbird.
+If JWT expiration continues after v15, the next step should be reporting the reproducible issue to Decap Turbo rather than adding a custom authentication hack to the site.
+
+## Important notes
+
+- No custom autosave or Editorial Workflow was added. Decap's built-in local recovery is already doing the job needed for accidental/session-failure recovery.
+- No existing Herb content was rewritten or altered.
+- No Amazon Associates links were added. The new resource system is ready for affiliate URLs later, once Fate Apothecary/BEMA are approved.
+
+## Deployment
+
+Upload the contents of this folder to the existing `bema-trade/fate-apothecary` GitHub repository and commit to `main`. Cloudflare Pages should deploy automatically.

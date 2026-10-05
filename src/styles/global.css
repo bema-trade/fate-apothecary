@@ -151,6 +151,7 @@ h3 { font-size: 1.5rem; }
 .resource-card-image { width: 100%; height: 220px; object-fit: cover; border-radius: 12px; }
 .recipe-card h3, .recipe-card h2 { margin: 18px 0 8px; font-size: 1.8rem; }
 .recipe-card p { color: var(--muted); }
+.herb-card-botanical { font-family: 'Cormorant Garamond', serif; font-size: 1.12rem; }
 .card-kicker { margin: 16px 0 -10px !important; color: var(--mauve) !important; text-transform: uppercase; letter-spacing: .12em; font-size: .7rem; }
 .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag-row span { border-radius: 999px; background: #6d405f; padding: 6px 11px; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; }
@@ -247,6 +248,161 @@ h3 { font-size: 1.5rem; }
 .resource-steps h3 { margin-bottom: 6px; }
 .resource-steps p { margin-top: 0; }
 .resource-updated { color: var(--muted); margin-top: 28px; }
+
+/* Herb profiles */
+.herb-intro { align-items: stretch; }
+.herb-intro-copy { align-self: center; padding: 28px 0; }
+.herb-botanical {
+  margin: -2px 0 22px;
+  color: var(--muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  letter-spacing: .02em;
+}
+.herb-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 38px 0 18px;
+}
+.herb-info-card {
+  min-width: 0;
+  padding: 28px 30px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255,255,255,.025);
+}
+.herb-card-kicker {
+  margin: 0 0 10px;
+  color: var(--mauve);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .7rem;
+  font-weight: 600;
+}
+.herb-info-card h2 { margin: 0 0 14px; font-size: 2.25rem; }
+.herb-info-card p { margin: 0; color: #eadfe6; }
+.herb-info-card ul { margin: 0; padding-left: 1.2rem; }
+.herb-info-card li { margin-bottom: 10px; color: #eadfe6; }
+.herb-info-card li:last-child { margin-bottom: 0; }
+
+.herb-editorial-block {
+  margin-top: 20px;
+  padding: 40px 42px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, rgba(188,124,168,.055), rgba(255,255,255,.015) 60%, transparent);
+}
+.herb-editorial-block h2 { margin-bottom: 14px; }
+.herb-editorial-block > p:last-child {
+  max-width: 900px;
+  margin-bottom: 0;
+  color: #eadfe6;
+  font-size: 1.03rem;
+}
+
+.herb-caution {
+  display: grid;
+  grid-template-columns: .65fr 1.35fr;
+  gap: 34px;
+  align-items: start;
+  margin-top: 26px;
+  padding: 30px 32px;
+  border: 1px solid #865572;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(125,73,109,.22), rgba(77,42,66,.15));
+}
+.herb-caution h2 { margin: 0; font-size: 2.2rem; }
+.herb-caution-copy p { margin-top: 0; color: #f0e3eb; }
+.herb-caution-copy p:last-child { margin-bottom: 0; }
+.herb-standard-disclaimer {
+  padding-top: 14px;
+  border-top: 1px solid rgba(188,124,168,.32);
+  color: var(--muted) !important;
+  font-size: .84rem;
+  line-height: 1.6;
+}
+
+.herb-resource-section,
+.related-herbs-section {
+  margin-top: 48px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+}
+.herb-resource-section > h2,
+.related-herbs-section > h2 { margin-bottom: 10px; }
+.herb-section-lede {
+  max-width: 720px;
+  margin: 0 0 20px;
+  color: var(--muted);
+}
+.herb-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.herb-resource-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 18px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.025);
+  transition: transform .18s ease, border-color .18s ease;
+}
+.herb-resource-card:hover { border-color: rgba(188,124,168,.62); }
+.herb-resource-link { display: inline-block; margin-top: 2px; }
+.herb-resource-link:hover { color: #f3cfe1; }
+.herb-resource-image,
+.herb-resource-placeholder {
+  width: 92px;
+  height: 118px;
+  border-radius: 8px;
+}
+.herb-resource-image { object-fit: cover; }
+.herb-resource-placeholder {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg,#4c2b45,#261522);
+  color: var(--mauve);
+  border: 1px solid rgba(188,124,168,.28);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+}
+.herb-resource-copy h3 { margin: 0 0 5px; font-size: 1.55rem; }
+.herb-resource-copy p { margin: 0 0 8px; color: var(--muted); font-size: .9rem; }
+.herb-resource-author { color: #eadfe6 !important; font-style: italic; }
+
+.related-herb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.related-herb-card {
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.02);
+  transition: transform .18s ease, border-color .18s ease;
+}
+.related-herb-card:hover { transform: translateY(-2px); border-color: var(--mauve); }
+.related-herb-card img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.related-herb-card h3 { margin: 0 0 4px; font-size: 1.45rem; }
+.related-herb-card p { margin: 0; color: var(--muted); font-size: .84rem; }
+.related-herb-card > span { color: var(--mauve); font-size: 1.25rem; }
 
 /* Search */
 .search-page { padding: 64px 0 20px; }
@@ -353,6 +509,11 @@ h3 { font-size: 1.5rem; }
   .button-secondary { width: 100%; }
   .resource-intro { gap: 28px; }
   .resource-sections { padding-top: 18px; }
+  .herb-overview-grid { grid-template-columns: 1fr; padding-top: 28px; }
+  .herb-editorial-block { padding: 30px 24px; }
+  .herb-caution { grid-template-columns: 1fr; gap: 14px; padding: 26px 24px; }
+  .herb-resource-grid { grid-template-columns: 1fr; }
+  .related-herb-grid { grid-template-columns: 1fr; }
 
   .search-form { width: 100%; }
   .search-form .button { padding-inline: 14px; }
@@ -609,6 +770,8 @@ a.tool-card:hover { border-color: var(--mauve); transform: translateY(-2px); }
 }
 
 @media (max-width: 520px) {
+  .herb-resource-card { grid-template-columns: 72px 1fr; }
+  .herb-resource-image, .herb-resource-placeholder { width: 72px; height: 96px; }
   .recipe-tool-card { grid-template-columns: 72px 1fr; }
   .recipe-tool-image { width: 72px; height: 72px; }
   .tool-card { grid-template-columns: 1fr; }

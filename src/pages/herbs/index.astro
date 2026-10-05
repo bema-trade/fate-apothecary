@@ -14,7 +14,7 @@ const herbs = await getCollection('herbs');
           <a class="recipe-card" href={`/herbs/${herb.id}/`}>
             {herb.data.image ? <img class="resource-card-image" src={herb.data.image} alt="" /> : <div class="recipe-card-placeholder">{herb.data.title}</div>}
             <h2>{herb.data.title}</h2>
-            <p>{herb.data.description}</p>
+            <p class="herb-card-botanical"><em>{herb.data.description}</em></p>
             <div class="tag-row">{herb.data.tags.map((tag) => <span>{tag}</span>)}</div>
           </a>
         ))}

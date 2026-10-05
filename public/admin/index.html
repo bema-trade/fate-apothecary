@@ -3,9 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
     <title>Fate Apothecary Admin</title>
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.17.0-beta.2/dist/decap-cms.js"></script>
+    <!--
+      Decap Turbo is still shipped on Decap's beta channel. Tracking @beta here
+      means session/auth fixes are picked up without requiring a full site build.
+      Decap's local form recovery remains available if an upstream Turbo session
+      ever expires while an entry is being edited.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@beta/dist/decap-cms.js"></script>
   </body>
 </html>

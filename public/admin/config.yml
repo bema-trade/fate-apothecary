@@ -129,6 +129,21 @@ collections:
       - { label: "Affiliate link?", name: affiliate, widget: boolean, default: true, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false }
 
+  - name: herb_resources
+    label: Herb Books & Resources
+    folder: src/content/herb-resources
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Author / creator, name: author, widget: string, required: false }
+      - { label: Short note, name: description, widget: text, required: false, hint: "Optional. A quick note about why you use or recommend this resource." }
+      - { label: Cover / image, name: image, widget: image, required: false }
+      - { label: Link, name: url, widget: string, required: false, hint: "Paste the full URL. This can later be an Amazon Associates or other affiliate link." }
+      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: false, required: false }
+
   - name: herbs
     label: Herbs
     folder: src/content/herbs
@@ -138,7 +153,7 @@ collections:
     format: frontmatter
     fields:
       - { label: Herb name, name: title, widget: string }
-      - { label: Short description, name: description, widget: text }
+      - { label: Botanical name, name: description, widget: string, hint: "Example: Origanum vulgare. This keeps the existing field compatible with herb profiles you have already created." }
       - { label: Main photo, name: image, widget: image, required: false }
       - label: Tags
         name: tags
@@ -165,6 +180,26 @@ collections:
       - { label: Growing notes, name: growingNotes, widget: text, required: false }
       - { label: Storage & preserving, name: storage, widget: text, required: false }
       - { label: Cautions / things to know, name: cautions, widget: text, required: false }
+      - label: Books & resources I use
+        name: resources
+        widget: relation
+        collection: herb_resources
+        search_fields: [title, author, description]
+        display_fields: [title, author]
+        value_field: "{{slug}}"
+        multiple: true
+        required: false
+        hint: "Optional. Choose books or reference resources you actually use for this herb. Add reusable resources under Herb Books & Resources first."
+      - label: Related herbs
+        name: relatedHerbs
+        widget: relation
+        collection: herbs
+        search_fields: [title, description]
+        display_fields: [title, description]
+        value_field: "{{slug}}"
+        multiple: true
+        required: false
+        hint: "Optional. Choose other Fate Apothecary herb profiles that are useful to explore next."
       - { label: Last updated, name: lastUpdated, widget: string, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false }
 

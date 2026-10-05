@@ -9,27 +9,146 @@ export async function getStaticPaths() {
 
 const { herb } = Astro.props;
 const h = herb.data;
+const allResources = await getCollection('herbResources');
+const allHerbs = await getCollection('herbs');
+
+const selectedResources = (h.resources ?? [])
+  .map((slug) => allResources.find((resource) => resource.id === slug))
+  .filter(Boolean);
+
+const relatedHerbs = (h.relatedHerbs ?? [])
+  .map((slug) => allHerbs.find((related) => related.id === slug && related.id !== herb.id))
+  .filter(Boolean);
+
+const hasAffiliateResources = selectedResources.some((resource) => resource?.data.affiliate && resource?.data.url);
+const metaDescription = `Practical notes on ${h.title}${h.description ? ` (${h.description})` : ''}: culinary use, growing, storage, traditional use, and safety.`;
 ---
-<Base title={`${h.title} | Fate Apothecary`} description={h.description}>
-  <article class="resource-page shell">
-    <section class="resource-intro">
-      <div>
+<Base title={`${h.title} | Fate Apothecary`} description={metaDescription}>
+  <article class="resource-page herb-page shell">
+    <section class="resource-intro herb-intro">
+      <div class="herb-intro-copy">
         <p class="eyebrow">Herbs</p>
         <h1>{h.title}</h1>
-        <p class="resource-description">{h.description}</p>
-        <div class="tag-row large">{h.tags.map((tag) => <span>{tag}</span>)}</div>
+        {h.description && <p class="herb-botanical"><em>{h.description}</em></p>}
+        {h.tags.length > 0 && <div class="tag-row large">{h.tags.map((tag) => <span>{tag}</span>)}</div>}
       </div>
       {h.image ? <img class="resource-hero-image" src={h.image} alt={h.title} /> : <div class="resource-photo-placeholder">Herb photo goes here</div>}
     </section>
 
-    <section class="resource-sections">
-      {h.flavorProfile && <div class="resource-block"><h2>Flavor & aroma</h2><p>{h.flavorProfile}</p></div>}
-      {h.culinaryUses.length > 0 && <div class="resource-block"><h2>In the kitchen</h2><ul>{h.culinaryUses.map((item) => <li>{item}</li>)}</ul></div>}
-      {h.traditionalUses && <div class="resource-block"><h2>Traditional use notes</h2><p>{h.traditionalUses}</p></div>}
-      {h.growingNotes && <div class="resource-block"><h2>Growing it</h2><p>{h.growingNotes}</p></div>}
-      {h.storage && <div class="resource-block"><h2>Storage & preserving</h2><p>{h.storage}</p></div>}
-      {h.cautions && <div class="resource-block resource-caution"><h2>Things to know</h2><p>{h.cautions}</p></div>}
+    {(h.flavorProfile || h.culinaryUses.length > 0 || h.growingNotes || h.storage) && (
+      <section class="herb-overview-grid" aria-label={`${h.title} practical information`}>
+        {h.flavorProfile && (
+          <article class="herb-info-card">
+            <p class="herb-card-kicker">Taste & scent</p>
+            <h2>Flavor & aroma</h2>
+            <p>{h.flavorProfile}</p>
+          </article>
+        )}
+
+        {h.culinaryUses.length > 0 && (
+          <article class="herb-info-card">
+            <p class="herb-card-kicker">Cook with it</p>
+            <h2>In the kitchen</h2>
+            <ul>{h.culinaryUses.map((item) => <li>{item}</li>)}</ul>
+          </article>
+        )}
+
+        {h.growingNotes && (
+          <article class="herb-info-card">
+            <p class="herb-card-kicker">In the garden</p>
+            <h2>Growing it</h2>
+            <p>{h.growingNotes}</p>
+          </article>
+        )}
+
+        {h.storage && (
+          <article class="herb-info-card">
+            <p class="herb-card-kicker">Keep it useful</p>
+            <h2>Storage & preserving</h2>
+            <p>{h.storage}</p>
+          </article>
+        )}
+      </section>
+    )}
+
+    {h.traditionalUses && (
+      <section class="herb-editorial-block">
+        <p class="eyebrow">Herbal tradition</p>
+        <h2>Traditional use notes</h2>
+        <p>{h.traditionalUses}</p>
+      </section>
+    )}
+
+    <section class="herb-caution" aria-label="Herb safety information">
+      <div>
+        <p class="eyebrow">Safety first</p>
+        <h2>Things to know</h2>
+      </div>
+      <div class="herb-caution-copy">
+        {h.cautions && <p>{h.cautions}</p>}
+        <p class="herb-standard-disclaimer">Herbal information on Fate Apothecary is for educational purposes only and is not individualized medical advice. Herbs can interact with medications, health conditions, pregnancy, and one another.</p>
+      </div>
     </section>
+
+    {selectedResources.length > 0 && (
+      <section class="herb-resource-section">
+        <p class="eyebrow">On our shelf</p>
+        <h2>Books & resources we use</h2>
+        <p class="herb-section-lede">A few of the references we actually reach for when learning about and working with {h.title.toLowerCase()}.</p>
+        {hasAffiliateResources && (
+          <p class="affiliate-disclosure">Some resource links are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.</p>
+        )}
+        <div class="herb-resource-grid">
+          {selectedResources.map((resource) => {
+            if (!resource) return null;
+            const r = resource.data;
+            return (
+              <article class="herb-resource-card">
+                {r.image ? <img class="herb-resource-image" src={r.image} alt="" /> : <div class="herb-resource-placeholder" aria-hidden="true">Read</div>}
+                <div class="herb-resource-copy">
+                  <h3>{r.title}</h3>
+                  {r.author && <p class="herb-resource-author">{r.author}</p>}
+                  {r.description && <p>{r.description}</p>}
+                  {r.url && (
+                    <a
+                      class="tool-link-text herb-resource-link"
+                      href={r.url}
+                      target="_blank"
+                      rel={r.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+                    >
+                      View resource ↗
+                    </a>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    {relatedHerbs.length > 0 && (
+      <section class="related-herbs-section">
+        <p class="eyebrow">Keep exploring</p>
+        <h2>Related herbs</h2>
+        <div class="related-herb-grid">
+          {relatedHerbs.map((related) => {
+            if (!related) return null;
+            return (
+              <a class="related-herb-card" href={`/herbs/${related.id}/`}>
+                {related.data.image && <img src={related.data.image} alt="" />}
+                <div>
+                  <h3>{related.data.title}</h3>
+                  {related.data.description && <p><em>{related.data.description}</em></p>}
+                </div>
+                <span aria-hidden="true">→</span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
     {h.lastUpdated && <p class="resource-updated">Last updated {h.lastUpdated}</p>}
   </article>
 </Base>
