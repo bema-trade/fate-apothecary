@@ -50,16 +50,31 @@ const kitchenTools = defineCollection({
   })
 });
 
+const gardenResources = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/garden-resources' }),
+  schema: z.object({
+    title: z.string(),
+    category: z.string().optional(),
+    description: z.string(),
+    image: z.string().optional(),
+    whyWeUseIt: z.string().optional(),
+    purchaseUrl: z.string().optional(),
+    affiliate: z.boolean().default(false),
+    featured: z.boolean().default(false)
+  })
+});
 
-const herbResources = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/herb-resources' }),
+const bookshelf = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/bookshelf' }),
   schema: z.object({
     title: z.string(),
     author: z.string().optional(),
+    category: z.string().optional(),
     description: z.string().optional(),
     image: z.string().optional(),
     url: z.string().optional(),
-    affiliate: z.boolean().default(false)
+    affiliate: z.boolean().default(false),
+    featured: z.boolean().default(false)
   })
 });
 
@@ -103,4 +118,4 @@ const garden = defineCollection({
   })
 });
 
-export const collections = { recipes, kitchenTools, herbResources, herbs, garden };
+export const collections = { recipes, kitchenTools, gardenResources, bookshelf, herbs, garden };

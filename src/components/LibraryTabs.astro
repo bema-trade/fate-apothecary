@@ -1,0 +1,19 @@
+---
+const { active = '' } = Astro.props;
+const tabs = [
+  { key: 'kitchen', label: 'Kitchen & Cooking', href: '/library/kitchen-cooking/' },
+  { key: 'garden', label: 'Garden & Growing', href: '/library/garden-growing/' },
+  { key: 'bookshelf', label: 'Bookshelf', href: '/library/bookshelf/' }
+];
+---
+<nav class="section-tabs" aria-label="Fate Apothecary Library">
+  {tabs.map((tab) => (
+    <a
+      href={tab.href}
+      class={active === tab.key ? 'section-tab active' : 'section-tab'}
+      aria-current={active === tab.key ? 'page' : undefined}
+    >
+      {tab.label}
+    </a>
+  ))}
+</nav>

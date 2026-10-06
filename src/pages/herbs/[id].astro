@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 
 const { herb } = Astro.props;
 const h = herb.data;
-const allResources = await getCollection('herbResources');
+const allResources = await getCollection('bookshelf');
 const allHerbs = await getCollection('herbs');
 
 const selectedResources = (h.resources ?? [])
@@ -92,9 +92,9 @@ const metaDescription = `Practical notes on ${h.title}${h.description ? ` (${h.d
 
     {selectedResources.length > 0 && (
       <section class="herb-resource-section">
-        <p class="eyebrow">On our shelf</p>
-        <h2>Books & resources we use</h2>
-        <p class="herb-section-lede">A few of the references we actually reach for when learning about and working with {h.title.toLowerCase()}.</p>
+        <p class="eyebrow">From the Library</p>
+        <h2>From our bookshelf</h2>
+        <p class="herb-section-lede">A few of the references we actually reach for when learning about and working with {h.title.toLowerCase()}. You can find the full collection in the Fate Apothecary Library.</p>
         {hasAffiliateResources && (
           <p class="affiliate-disclosure">Some resource links are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.</p>
         )}
@@ -124,6 +124,7 @@ const metaDescription = `Practical notes on ${h.title}${h.description ? ` (${h.d
             );
           })}
         </div>
+        <p class="herb-library-link"><a href="/library/bookshelf/">Browse the full Bookshelf →</a></p>
       </section>
     )}
 

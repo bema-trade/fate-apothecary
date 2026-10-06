@@ -6,6 +6,8 @@ const recipes = await getCollection('recipes');
 const herbs = await getCollection('herbs');
 const garden = await getCollection('garden');
 const kitchenTools = await getCollection('kitchenTools');
+const gardenResources = await getCollection('gardenResources');
+const bookshelf = await getCollection('bookshelf');
 
 const ingredientText = (ingredient) => typeof ingredient === 'string' ? ingredient : ingredient.ingredient;
 
@@ -15,6 +17,7 @@ const items = [
     description: item.data.description,
     tags: item.data.tags,
     type: 'Recipe',
+    group: 'recipe',
     url: `/recipes/${item.id}/`,
     keywords: [
       item.data.category,
@@ -30,6 +33,7 @@ const items = [
     description: item.data.description,
     tags: item.data.tags,
     type: 'Herb',
+    group: 'herb',
     url: `/herbs/${item.id}/`,
     keywords: [item.data.flavorProfile, ...item.data.culinaryUses, item.data.traditionalUses, item.data.growingNotes, item.data.storage, item.data.cautions].filter(Boolean).join(' ')
   })),
@@ -38,6 +42,7 @@ const items = [
     description: item.data.description,
     tags: item.data.tags,
     type: 'Garden',
+    group: 'garden',
     url: `/garden/${item.id}/`,
     keywords: [item.data.season, ...item.data.whatYouNeed, ...item.data.steps.flatMap((step) => [step.title, step.text]), item.data.harvest, ...item.data.notes].filter(Boolean).join(' ')
   })),
@@ -45,13 +50,32 @@ const items = [
     title: item.data.title,
     description: item.data.description,
     tags: [item.data.category].filter(Boolean),
-    type: 'Kitchen Tool',
-    url: `/kitchen-tools/#${item.id}`,
+    type: 'Kitchen & Cooking',
+    group: 'library',
+    url: `/library/kitchen-cooking/#${item.id}`,
     keywords: [item.data.category, item.data.whyWeUseIt].filter(Boolean).join(' ')
+  })),
+  ...gardenResources.map((item) => ({
+    title: item.data.title,
+    description: item.data.description,
+    tags: [item.data.category].filter(Boolean),
+    type: 'Garden & Growing',
+    group: 'library',
+    url: `/library/garden-growing/#${item.id}`,
+    keywords: [item.data.category, item.data.whyWeUseIt].filter(Boolean).join(' ')
+  })),
+  ...bookshelf.map((item) => ({
+    title: item.data.title,
+    description: item.data.description || item.data.author || 'A resource from the Fate Apothecary bookshelf.',
+    tags: [item.data.category].filter(Boolean),
+    type: 'Bookshelf',
+    group: 'library',
+    url: `/library/bookshelf/#${item.id}`,
+    keywords: [item.data.author, item.data.category, item.data.description].filter(Boolean).join(' ')
   }))
 ];
 ---
-<Base title="Search | Fate Apothecary" description="Search recipes, herbs, garden resources, and kitchen tools from Fate Apothecary.">
+<Base title="Search | Fate Apothecary" description="Search recipes, herbs, garden notes, and the Fate Apothecary Library.">
   <section class="shell search-page">
     <p class="eyebrow">Find what you need</p>
     <h1>Search</h1>
@@ -66,7 +90,7 @@ const items = [
       <button class="search-filter" type="button" data-filter="recipe">Recipes</button>
       <button class="search-filter" type="button" data-filter="herb">Herbs</button>
       <button class="search-filter" type="button" data-filter="garden">Garden</button>
-      <button class="search-filter" type="button" data-filter="kitchen tool">Kitchen Tools</button>
+      <button class="search-filter" type="button" data-filter="library">Library</button>
     </div>
 
     <p id="search-summary" class="search-summary"></p>
@@ -75,7 +99,7 @@ const items = [
         <a
           class="search-result"
           href={item.url}
-          data-type={item.type.toLowerCase()}
+          data-type={item.group}
           data-search={`${item.title} ${item.description} ${item.tags.join(' ')} ${item.type} ${item.keywords}`.toLowerCase()}
         >
           <span class="search-result-type">{item.type}</span>

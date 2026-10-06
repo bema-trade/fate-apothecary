@@ -75,7 +75,7 @@ collections:
         value_field: "{{slug}}"
         multiple: true
         required: false
-        hint: "Optional. Choose any Kitchen Tools used for this recipe."
+        hint: "Optional. Choose anything from Library · Kitchen & Cooking used for this recipe."
       - label: Instructions
         name: instructions
         widget: list
@@ -109,7 +109,7 @@ collections:
       - { label: Featured, name: featured, widget: boolean, default: false }
 
   - name: kitchen_tools
-    label: Kitchen Tools
+    label: "Library · Kitchen & Cooking"
     folder: src/content/kitchen-tools
     create: true
     slug: "{{slug}}"
@@ -129,9 +129,30 @@ collections:
       - { label: "Affiliate link?", name: affiliate, widget: boolean, default: true, required: false }
       - { label: Featured, name: featured, widget: boolean, default: false }
 
-  - name: herb_resources
-    label: Herb Books & Resources
-    folder: src/content/herb-resources
+  - name: garden_resources
+    label: "Library · Garden & Growing"
+    folder: src/content/garden-resources
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Item name, name: title, widget: string }
+      - label: Category
+        name: category
+        widget: select
+        required: false
+        options: [Tools & equipment, Seeds & starts, Soil & amendments, Watering & irrigation, Containers & raised beds, Harvest & storage, Other]
+      - { label: Short description, name: description, widget: text }
+      - { label: Photo, name: image, widget: image, required: false }
+      - { label: Why we use it, name: whyWeUseIt, widget: text, required: false }
+      - { label: Purchase / resource link, name: purchaseUrl, widget: string, required: false, hint: "Paste the full URL. This can later be an affiliate link." }
+      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: false, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+
+  - name: bookshelf
+    label: "Library · Bookshelf"
+    folder: src/content/bookshelf
     create: true
     slug: "{{slug}}"
     extension: md
@@ -139,10 +160,16 @@ collections:
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Author / creator, name: author, widget: string, required: false }
+      - label: Category
+        name: category
+        widget: select
+        required: false
+        options: [Herbalism, Cooking, Gardening, Reference, Other]
       - { label: Short note, name: description, widget: text, required: false, hint: "Optional. A quick note about why you use or recommend this resource." }
       - { label: Cover / image, name: image, widget: image, required: false }
       - { label: Link, name: url, widget: string, required: false, hint: "Paste the full URL. This can later be an Amazon Associates or other affiliate link." }
       - { label: "Affiliate link?", name: affiliate, widget: boolean, default: false, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
 
   - name: herbs
     label: Herbs
@@ -183,13 +210,13 @@ collections:
       - label: Books & resources I use
         name: resources
         widget: relation
-        collection: herb_resources
+        collection: bookshelf
         search_fields: [title, author, description]
         display_fields: [title, author]
         value_field: "{{slug}}"
         multiple: true
         required: false
-        hint: "Optional. Choose books or reference resources you actually use for this herb. Add reusable resources under Herb Books & Resources first."
+        hint: "Optional. Choose books or reference resources you actually use for this herb. Add reusable resources under Library · Bookshelf first."
       - label: Related herbs
         name: relatedHerbs
         widget: relation

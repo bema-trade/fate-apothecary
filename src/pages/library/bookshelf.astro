@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import LibraryTabs from '../../components/LibraryTabs.astro';
+import { getCollection } from 'astro:content';
+
+const books = (await getCollection('bookshelf')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const hasAffiliateLinks = books.some((book) => book.data.affiliate && book.data.url);
+---
+<Base title="Bookshelf | Fate Apothecary" description="Books and reference resources we actually use at Fate Apothecary.">
+  <section class="library-page shell shell-standard">
+    <LibraryTabs active="bookshelf" />
+
+    <p class="eyebrow">The Fate Apothecary Library</p>
+    <h1>Bookshelf</h1>
+    <p class="listing-lede">
+      Cookbooks, herbal references, growing guides, and the resources we actually reach for when we want to learn more.
+    </p>
+
+    {hasAffiliateLinks && (
+      <p class="affiliate-disclosure library-disclosure">
+        Some links on this page are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.
+      </p>
+    )}
+
+    {books.length > 0 ? (
+      <div class="bookshelf-grid">
+        {books.map((book) => {
+          const b = book.data;
+          return b.url ? (
+            <a
+              id={book.id}
+              class="bookshelf-card"
+              href={b.url}
+              target="_blank"
+              rel={b.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+            >
+              {b.image ? <img class="bookshelf-cover" src={b.image} alt={`Cover of ${b.title}`} /> : <div class="bookshelf-cover-placeholder" aria-hidden="true">Read</div>}
+              <div class="bookshelf-copy">
+                {b.category && <p class="bookshelf-category">{b.category}</p>}
+                <h2>{b.title}</h2>
+                {b.author && <p class="bookshelf-author">{b.author}</p>}
+                {b.description && <p>{b.description}</p>}
+                <span class="tool-link-text">View resource ↗</span>
+              </div>
+            </a>
+          ) : (
+            <article id={book.id} class="bookshelf-card">
+              {b.image ? <img class="bookshelf-cover" src={b.image} alt={`Cover of ${b.title}`} /> : <div class="bookshelf-cover-placeholder" aria-hidden="true">Read</div>}
+              <div class="bookshelf-copy">
+                {b.category && <p class="bookshelf-category">{b.category}</p>}
+                <h2>{b.title}</h2>
+                {b.author && <p class="bookshelf-author">{b.author}</p>}
+                {b.description && <p>{b.description}</p>}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    ) : (
+      <div class="empty-state library-empty-state">
+        <h2>The bookshelf is still being filled.</h2>
+        <p>Books and reference resources will show up here as we add the ones we actually use.</p>
+      </div>
+    )}
+  </section>
+</Base>

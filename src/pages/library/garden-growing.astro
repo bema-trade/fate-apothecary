@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import LibraryTabs from '../../components/LibraryTabs.astro';
+import { getCollection } from 'astro:content';
+
+const resources = (await getCollection('gardenResources')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const categories = [...new Set(resources.map((item) => item.data.category || 'Other'))].sort();
+---
+<Base title="Garden & Growing | Fate Apothecary" description="Garden and growing tools, supplies, and resources we actually use at Fate Apothecary.">
+  <section class="library-page shell shell-standard">
+    <LibraryTabs active="garden" />
+
+    <p class="eyebrow">The Fate Apothecary Library</p>
+    <h1>Garden & Growing</h1>
+    <p class="listing-lede">
+      The tools, supplies, and growing gear that have earned a place in our garden—not a catalog of everything that exists.
+    </p>
+
+    <aside class="about-note affiliate-site-note">
+      <p class="eyebrow">A quick note about links</p>
+      <p>
+        Some links on this page may be affiliate links. If you purchase through one, Fate Apothecary may earn a small commission at no extra cost to you.
+      </p>
+    </aside>
+
+    {resources.length > 0 ? (
+      <div class="tool-category-list">
+        {categories.map((category) => (
+          <section class="tool-category">
+            <h2>{category}</h2>
+            <div class="tool-grid">
+              {resources.filter((item) => (item.data.category || 'Other') === category).map((item) => {
+                const r = item.data;
+                return r.purchaseUrl ? (
+                  <a
+                    id={item.id}
+                    class="tool-card"
+                    href={r.purchaseUrl}
+                    target="_blank"
+                    rel={r.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+                  >
+                    {r.image ? <img class="tool-card-image" src={r.image} alt={r.title} /> : <div class="tool-card-placeholder">{r.title}</div>}
+                    <div class="tool-card-copy">
+                      <h3>{r.title}</h3>
+                      <p>{r.description}</p>
+                      {r.whyWeUseIt && <p class="tool-why"><strong>Why we use it:</strong> {r.whyWeUseIt}</p>}
+                      <span class="tool-link-text">View resource ↗</span>
+                    </div>
+                  </a>
+                ) : (
+                  <article id={item.id} class="tool-card">
+                    {r.image ? <img class="tool-card-image" src={r.image} alt={r.title} /> : <div class="tool-card-placeholder">{r.title}</div>}
+                    <div class="tool-card-copy">
+                      <h3>{r.title}</h3>
+                      <p>{r.description}</p>
+                      {r.whyWeUseIt && <p class="tool-why"><strong>Why we use it:</strong> {r.whyWeUseIt}</p>}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state library-empty-state">
+        <h2>The garden shelf is just getting started.</h2>
+        <p>As we add the tools and supplies we actually use for growing, they’ll collect here.</p>
+      </div>
+    )}
+  </section>
+</Base>

@@ -10,10 +10,10 @@ const { title = 'Fate Apothecary', description = 'Practical food, herbs, gardeni
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" href="/favicon.ico?v=15" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=15" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=15" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=15" />
+    <link rel="icon" href="/favicon.ico?v=16" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=16" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=16" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=16" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -36,9 +36,9 @@ const { title = 'Fate Apothecary', description = 'Practical food, herbs, gardeni
   <body>
     <header class="site-header shell">
       <nav class="nav-side nav-left desktop-nav" aria-label="Site navigation">
-        <a href="/">Home</a>
-        <a href="/support">Support</a>
+        <a href="/support">Support Us</a>
         <a href="/about">About</a>
+        <a href="/library">Library</a>
       </nav>
 
       <button class="mobile-menu-button" id="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
@@ -65,11 +65,12 @@ const { title = 'Fate Apothecary', description = 'Practical food, herbs, gardeni
 
 <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
   <div class="shell mobile-menu-inner">
-    <a href="/">Home</a>
+    <a class="mobile-home-link" href="/">Home</a>
+    <a href="/support">Support Us</a>
     <a href="/recipes">Recipes</a>
-    <a href="/support">Support</a>
-    <a href="/herbs">Herbs</a>
     <a href="/about">About</a>
+    <a href="/herbs">Herbs</a>
+    <a href="/library">Library</a>
     <a href="/garden">Garden</a>
   </div>
 </nav>

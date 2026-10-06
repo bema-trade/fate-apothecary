@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import LibraryTabs from '../../components/LibraryTabs.astro';
+---
+<Base
+  title="Library | Fate Apothecary"
+  description="The kitchen, growing, and bookshelf resources we actually use at Fate Apothecary."
+>
+  <section class="library-page shell shell-standard">
+    <LibraryTabs />
+
+    <p class="eyebrow">The Fate Apothecary Library</p>
+    <h1>The things we actually use.</h1>
+    <p class="listing-lede">
+      Our working shelf of tools, books, and resources—the things that earn space in our kitchen, garden, and actual lives.
+    </p>
+
+    <div class="library-hub-grid">
+      <a class="library-hub-card" href="/library/kitchen-cooking/">
+        <span class="library-hub-number">01</span>
+        <h2>Kitchen & Cooking</h2>
+        <p>Cookware, appliances, prep tools, and the kitchen things we reach for again and again.</p>
+        <span class="library-hub-link">Browse the kitchen →</span>
+      </a>
+
+      <a class="library-hub-card" href="/library/garden-growing/">
+        <span class="library-hub-number">02</span>
+        <h2>Garden & Growing</h2>
+        <p>Tools, supplies, and growing gear that help us get things from soil to kitchen.</p>
+        <span class="library-hub-link">Browse the garden →</span>
+      </a>
+
+      <a class="library-hub-card" href="/library/bookshelf/">
+        <span class="library-hub-number">03</span>
+        <h2>Bookshelf</h2>
+        <p>The cookbooks, herbal references, growing guides, and other resources we actually consult.</p>
+        <span class="library-hub-link">Browse the bookshelf →</span>
+      </a>
+    </div>
+
+    <aside class="about-note affiliate-site-note library-affiliate-note">
+      <p class="eyebrow">A quick note about links</p>
+      <p>
+        Some Library links may be affiliate links, which means Fate Apothecary may earn a small commission if you purchase through them. It never costs you extra, and we only share things we actually use or genuinely recommend.
+      </p>
+    </aside>
+  </section>
+</Base>

@@ -1,6 +1,6 @@
-# Fate Apothecary v15
+# Fate Apothecary v16
 
-Built from the fresh GitHub export supplied on October 4, 2026. Existing recipes, herbs (including Dill, Garlic, Oregano, and Thyme), Kitchen Tools, images, contact form, analytics, footer/social links, and all other current content are preserved.
+Built from the fresh GitHub export supplied on October 6, 2026. Existing recipes, herbs (including Dill, Garlic, Oregano, and Thyme), Kitchen Tools, images, contact form, analytics, footer/social links, and all other current content are preserved.
 
 ## v15 changes
 
@@ -52,3 +52,14 @@ If JWT expiration continues after v15, the next step should be reporting the rep
 ## Deployment
 
 Upload the contents of this folder to the existing `bema-trade/fate-apothecary` GitHub repository and commit to `main`. Cloudflare Pages should deploy automatically.
+
+## v16 information architecture update
+
+- Desktop navigation: Support Us · About · Library | logo/home | Recipes · Herbs · Garden.
+- Mobile navigation keeps Home full-width at the top, with the remaining six links in two columns.
+- New Library hub with Kitchen & Cooking, Garden & Growing, and Bookshelf pages.
+- Existing Kitchen Tools content is preserved and surfaced under Library · Kitchen & Cooking; `/kitchen-tools/` redirects to the new location.
+- Herb book/resource records are now the shared Library · Bookshelf collection; existing herb selections continue to work by slug.
+- Added a CMS-ready Library · Garden & Growing collection.
+- Standard interior pages now share one 1000px width rule; content-heavy pages continue using the 1180px wide shell.
+- Support is labeled Support Us in navigation and uses the standard interior width.
