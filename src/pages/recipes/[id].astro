@@ -13,10 +13,6 @@ const allTools = await getCollection('kitchenTools');
 const selectedTools = (r.tools ?? [])
   .map((slug) => allTools.find((tool) => tool.id === slug))
   .filter(Boolean);
-const hasAffiliateIngredientLinks = r.ingredients.some((ingredient) =>
-  typeof ingredient !== 'string' && Boolean(ingredient.externalUrl && ingredient.externalAffiliate)
-);
-const hasAffiliateTools = selectedTools.some((tool) => tool?.data.affiliate && tool?.data.purchaseUrl);
 ---
 <Base title={`${r.title} | Fate Apothecary`} description={r.description}>
   <article class="recipe-page shell">
@@ -46,9 +42,6 @@ const hasAffiliateTools = selectedTools.some((tool) => tool?.data.affiliate && t
     <section class="recipe-body">
       <aside class="ingredients-card">
         <h2>Ingredients</h2>
-        {hasAffiliateIngredientLinks && (
-          <p class="affiliate-disclosure">Some ingredient links are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.</p>
-        )}
         <ul>
           {r.ingredients.map((ingredient) => {
             const ingredientText = typeof ingredient === 'string' ? ingredient : ingredient.ingredient;
@@ -60,14 +53,17 @@ const hasAffiliateTools = selectedTools.some((tool) => tool?.data.affiliate && t
                 {linkedRecipe ? (
                   <a class="ingredient-recipe-link" href={`/recipes/${linkedRecipe}/`}>{ingredientText}</a>
                 ) : externalUrl ? (
-                  <a
-                    class="ingredient-product-link"
-                    href={externalUrl}
-                    target="_blank"
-                    rel={externalAffiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
-                  >
-                    {ingredientText}
-                  </a>
+                  <span class="affiliate-link-wrap">
+                    <a
+                      class="ingredient-product-link"
+                      href={externalUrl}
+                      target="_blank"
+                      rel={externalAffiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+                    >
+                      {ingredientText}
+                    </a>
+                    {externalAffiliate && <span class="paid-link-note inline">Paid link — we may earn a commission.</span>}
+                  </span>
                 ) : ingredientText}
               </li>
             );
@@ -98,9 +94,6 @@ const hasAffiliateTools = selectedTools.some((tool) => tool?.data.affiliate && t
       <section class="recipe-tools-section">
         <p class="eyebrow">Kitchen tools</p>
         <h2>Tools we use</h2>
-        {hasAffiliateTools && (
-          <p class="affiliate-disclosure">Some tool links are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.</p>
-        )}
         <div class="recipe-tool-grid">
           {selectedTools.map((tool) => {
             if (!tool) return null;
@@ -117,6 +110,7 @@ const hasAffiliateTools = selectedTools.some((tool) => tool?.data.affiliate && t
                   <h3>{t.title}</h3>
                   <p>{t.whyWeUseIt || t.description}</p>
                   <span class="tool-link-text">View tool ↗</span>
+                  {t.affiliate && <span class="paid-link-note">Paid link — we may earn a commission.</span>}
                 </div>
               </a>
             ) : (

@@ -1,4 +1,4 @@
-# Fate Apothecary v16
+# Fate Apothecary v17
 
 Built from the fresh GitHub export supplied on October 6, 2026. Existing recipes, herbs (including Dill, Garlic, Oregano, and Thyme), Kitchen Tools, images, contact form, analytics, footer/social links, and all other current content are preserved.
 
@@ -63,3 +63,16 @@ Upload the contents of this folder to the existing `bema-trade/fate-apothecary` 
 - Added a CMS-ready Library · Garden & Growing collection.
 - Standard interior pages now share one 1000px width rule; content-heavy pages continue using the 1180px wide shell.
 - Support is labeled Support Us in navigation and uses the standard interior width.
+
+
+## v17 affiliate-readiness update
+
+- Kitchen & Cooking, Garden & Growing, and Bookshelf now use one shared affiliate disclosure component and identical wording.
+- Affiliate links marked `affiliate: true` automatically display a clear link-level notice: **Paid link — we may earn a commission.**
+- The same link-level notice appears on affiliate ingredient links and linked Kitchen Tools on Recipe pages, and affiliate Bookshelf resources on Herb pages.
+- `rel="sponsored"` remains automatic on links marked as affiliate.
+- Affiliate toggles now default to **off** in the CMS until the exact URL can actually earn a commission.
+- CMS image fields now remind editors to use their own photos rather than copying retailer-hosted product images without permission.
+- Existing `m.media-amazon.com` image URLs were removed from Library content while preserving every item, description, external product URL, category, featured flag, and Herb/Recipe relationship. Those entries will show their existing placeholders until personal photos are uploaded through the CMS.
+- The Amazon-specific Associates statement is intentionally **not** displayed yet because Fate Apothecary is not currently enrolled. Once enrollment begins and Amazon Special Links are used, add Amazon's required Associate identification statement at that time.
+- Removed the leftover pre-v16 `src/content/herb-resources/` folder; Bookshelf remains the single source for Herb reference resources.

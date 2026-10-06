@@ -65,7 +65,7 @@ collections:
             widget: boolean
             default: false
             required: false
-            hint: "Turn this on if Fate Apothecary may earn a commission from the external link."
+            hint: "Turn this on only if this exact external URL can earn Fate Apothecary a commission."
       - label: Tools we use
         name: tools
         widget: relation
@@ -123,10 +123,10 @@ collections:
         required: false
         options: [Appliances, Cookware, Prep tools, Baking, Storage, Serving, Grill & outdoor, Other]
       - { label: Short description, name: description, widget: text }
-      - { label: Photo, name: image, widget: image, required: false }
+      - { label: Photo, name: image, widget: image, required: false, hint: "Upload your own photo whenever possible. Avoid copying retailer product images unless you have permission to use them." }
       - { label: Why we use it, name: whyWeUseIt, widget: text, required: false }
       - { label: Purchase / affiliate link, name: purchaseUrl, widget: string, required: false, hint: "Paste the full product URL. This can be an affiliate link." }
-      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: true, required: false }
+      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: false, required: false, hint: "Leave this off unless this exact URL can earn Fate Apothecary a commission." }
       - { label: Featured, name: featured, widget: boolean, default: false }
 
   - name: garden_resources
@@ -144,10 +144,10 @@ collections:
         required: false
         options: [Tools & equipment, Seeds & starts, Soil & amendments, Watering & irrigation, Containers & raised beds, Harvest & storage, Other]
       - { label: Short description, name: description, widget: text }
-      - { label: Photo, name: image, widget: image, required: false }
+      - { label: Photo, name: image, widget: image, required: false, hint: "Upload your own photo whenever possible. Avoid copying retailer product images unless you have permission to use them." }
       - { label: Why we use it, name: whyWeUseIt, widget: text, required: false }
       - { label: Purchase / resource link, name: purchaseUrl, widget: string, required: false, hint: "Paste the full URL. This can later be an affiliate link." }
-      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: false, required: false }
+      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: false, required: false, hint: "Leave this off unless this exact URL can earn Fate Apothecary a commission." }
       - { label: Featured, name: featured, widget: boolean, default: false }
 
   - name: bookshelf
@@ -166,9 +166,9 @@ collections:
         required: false
         options: [Herbalism, Cooking, Gardening, Reference, Other]
       - { label: Short note, name: description, widget: text, required: false, hint: "Optional. A quick note about why you use or recommend this resource." }
-      - { label: Cover / image, name: image, widget: image, required: false }
+      - { label: Cover / image, name: image, widget: image, required: false, hint: "Upload your own photo of the book/resource whenever possible. Avoid copying retailer product images unless you have permission to use them." }
       - { label: Link, name: url, widget: string, required: false, hint: "Paste the full URL. This can later be an Amazon Associates or other affiliate link." }
-      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: false, required: false }
+      - { label: "Affiliate link?", name: affiliate, widget: boolean, default: false, required: false, hint: "Leave this off unless this exact URL can earn Fate Apothecary a commission." }
       - { label: Featured, name: featured, widget: boolean, default: false }
 
   - name: herbs

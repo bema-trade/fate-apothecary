@@ -45,7 +45,7 @@ const kitchenTools = defineCollection({
     image: z.string().optional(),
     whyWeUseIt: z.string().optional(),
     purchaseUrl: z.string().optional(),
-    affiliate: z.boolean().default(true),
+    affiliate: z.boolean().default(false),
     featured: z.boolean().default(false)
   })
 });

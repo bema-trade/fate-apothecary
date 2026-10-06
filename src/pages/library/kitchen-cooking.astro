@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import LibraryTabs from '../../components/LibraryTabs.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import { getCollection } from 'astro:content';
 
 const tools = (await getCollection('kitchenTools')).sort((a, b) => a.data.title.localeCompare(b.data.title));
@@ -16,12 +17,7 @@ const categories = [...new Set(tools.map((tool) => tool.data.category || 'Other'
       No giant catalog of random gadgets. Just the cookware, appliances, and tools that earn space in our kitchen and show up in the things we actually make.
     </p>
 
-    <aside class="about-note affiliate-site-note">
-      <p class="eyebrow">A quick note about links</p>
-      <p>
-        Some links on this page are affiliate links, which means Fate Apothecary may earn a small commission if you purchase through them. It never costs you extra, and we only share things we actually use or genuinely recommend.
-      </p>
-    </aside>
+    <AffiliateDisclosure />
 
     {tools.length > 0 ? (
       <div class="tool-category-list">
@@ -45,6 +41,7 @@ const categories = [...new Set(tools.map((tool) => tool.data.category || 'Other'
                       <p>{t.description}</p>
                       {t.whyWeUseIt && <p class="tool-why"><strong>Why we use it:</strong> {t.whyWeUseIt}</p>}
                       <span class="tool-link-text">View tool ↗</span>
+                      {t.affiliate && <span class="paid-link-note">Paid link — we may earn a commission.</span>}
                     </div>
                   </a>
                 ) : (

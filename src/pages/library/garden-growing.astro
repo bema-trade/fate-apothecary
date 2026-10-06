@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import LibraryTabs from '../../components/LibraryTabs.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import { getCollection } from 'astro:content';
 
 const resources = (await getCollection('gardenResources')).sort((a, b) => a.data.title.localeCompare(b.data.title));
@@ -16,12 +17,7 @@ const categories = [...new Set(resources.map((item) => item.data.category || 'Ot
       The tools, supplies, and growing gear that have earned a place in our garden—not a catalog of everything that exists.
     </p>
 
-    <aside class="about-note affiliate-site-note">
-      <p class="eyebrow">A quick note about links</p>
-      <p>
-        Some links on this page may be affiliate links. If you purchase through one, Fate Apothecary may earn a small commission at no extra cost to you.
-      </p>
-    </aside>
+    <AffiliateDisclosure />
 
     {resources.length > 0 ? (
       <div class="tool-category-list">
@@ -45,6 +41,7 @@ const categories = [...new Set(resources.map((item) => item.data.category || 'Ot
                       <p>{r.description}</p>
                       {r.whyWeUseIt && <p class="tool-why"><strong>Why we use it:</strong> {r.whyWeUseIt}</p>}
                       <span class="tool-link-text">View resource ↗</span>
+                      {r.affiliate && <span class="paid-link-note">Paid link — we may earn a commission.</span>}
                     </div>
                   </a>
                 ) : (

@@ -1,0 +1,9 @@
+---
+const { class: className = '' } = Astro.props;
+---
+<aside class:list={["about-note", "affiliate-site-note", className]}>
+  <p class="eyebrow">A quick note about links</p>
+  <p>
+    Some links on this page may be affiliate links. If you make a purchase through one, Fate Apothecary may earn a commission at no additional cost to you. We only share products and resources we actually use or genuinely recommend.
+  </p>
+</aside>

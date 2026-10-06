@@ -20,7 +20,6 @@ const relatedHerbs = (h.relatedHerbs ?? [])
   .map((slug) => allHerbs.find((related) => related.id === slug && related.id !== herb.id))
   .filter(Boolean);
 
-const hasAffiliateResources = selectedResources.some((resource) => resource?.data.affiliate && resource?.data.url);
 const metaDescription = `Practical notes on ${h.title}${h.description ? ` (${h.description})` : ''}: culinary use, growing, storage, traditional use, and safety.`;
 ---
 <Base title={`${h.title} | Fate Apothecary`} description={metaDescription}>
@@ -95,9 +94,6 @@ const metaDescription = `Practical notes on ${h.title}${h.description ? ` (${h.d
         <p class="eyebrow">From the Library</p>
         <h2>From our bookshelf</h2>
         <p class="herb-section-lede">A few of the references we actually reach for when learning about and working with {h.title.toLowerCase()}. You can find the full collection in the Fate Apothecary Library.</p>
-        {hasAffiliateResources && (
-          <p class="affiliate-disclosure">Some resource links are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.</p>
-        )}
         <div class="herb-resource-grid">
           {selectedResources.map((resource) => {
             if (!resource) return null;
@@ -110,14 +106,17 @@ const metaDescription = `Practical notes on ${h.title}${h.description ? ` (${h.d
                   {r.author && <p class="herb-resource-author">{r.author}</p>}
                   {r.description && <p>{r.description}</p>}
                   {r.url && (
-                    <a
-                      class="tool-link-text herb-resource-link"
-                      href={r.url}
-                      target="_blank"
-                      rel={r.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
-                    >
-                      View resource ↗
-                    </a>
+                    <div class="affiliate-resource-link-wrap">
+                      <a
+                        class="tool-link-text herb-resource-link"
+                        href={r.url}
+                        target="_blank"
+                        rel={r.affiliate ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
+                      >
+                        View resource ↗
+                      </a>
+                      {r.affiliate && <span class="paid-link-note">Paid link — we may earn a commission.</span>}
+                    </div>
                   )}
                 </div>
               </article>

@@ -690,6 +690,24 @@ a.recipe-tool-card:hover { border-color: var(--mauve); }
 .recipe-tool-card p { margin: 0 0 8px; color: var(--muted); font-size: .92rem; }
 .tool-link-text { color: var(--mauve); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
 
+
+/* Clear, link-level affiliate disclosure */
+.affiliate-link-wrap { display: inline; }
+.paid-link-note {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: .68rem;
+  line-height: 1.35;
+  letter-spacing: .02em;
+  text-transform: none;
+}
+.paid-link-note.inline {
+  display: inline;
+  margin: 0 0 0 6px;
+  font-size: .68rem;
+}
+
 /* Kitchen tools */
 .affiliate-site-note { margin: 0 0 42px; }
 .tool-category-list { display: grid; gap: 46px; margin-top: 42px; }
@@ -755,7 +773,6 @@ a.tool-card:hover { border-color: var(--mauve); transform: translateY(-2px); }
 .library-hub-link { margin-top: auto; color: #efd9e6; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
 .library-affiliate-note { margin-top: 30px; }
 .library-empty-state { margin-top: 42px; }
-.library-disclosure { margin: -20px 0 34px; }
 .bookshelf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 38px; }
 .bookshelf-card {
   min-width: 0;

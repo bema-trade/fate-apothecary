@@ -1,10 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
 import LibraryTabs from '../../components/LibraryTabs.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import { getCollection } from 'astro:content';
 
 const books = (await getCollection('bookshelf')).sort((a, b) => a.data.title.localeCompare(b.data.title));
-const hasAffiliateLinks = books.some((book) => book.data.affiliate && book.data.url);
 ---
 <Base title="Bookshelf | Fate Apothecary" description="Books and reference resources we actually use at Fate Apothecary.">
   <section class="library-page shell shell-standard">
@@ -16,11 +16,7 @@ const hasAffiliateLinks = books.some((book) => book.data.affiliate && book.data.
       Cookbooks, herbal references, growing guides, and the resources we actually reach for when we want to learn more.
     </p>
 
-    {hasAffiliateLinks && (
-      <p class="affiliate-disclosure library-disclosure">
-        Some links on this page are affiliate links. Fate Apothecary may earn a small commission at no extra cost to you.
-      </p>
-    )}
+    <AffiliateDisclosure />
 
     {books.length > 0 ? (
       <div class="bookshelf-grid">
@@ -41,6 +37,7 @@ const hasAffiliateLinks = books.some((book) => book.data.affiliate && book.data.
                 {b.author && <p class="bookshelf-author">{b.author}</p>}
                 {b.description && <p>{b.description}</p>}
                 <span class="tool-link-text">View resource ↗</span>
+                {b.affiliate && <span class="paid-link-note">Paid link — we may earn a commission.</span>}
               </div>
             </a>
           ) : (
