@@ -5,5 +5,5 @@ category: Herbalism
 description: a home manual
 url: https://a.co/d/0dO53dRZ
 affiliate: false
-featured: false
+featured: true
 ---
