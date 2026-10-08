@@ -1,6 +1,6 @@
-# Fate Apothecary v17
+# Fate Apothecary v18
 
-Built from the fresh GitHub export supplied on October 6, 2026. Existing recipes, herbs (including Dill, Garlic, Oregano, and Thyme), Kitchen Tools, images, contact form, analytics, footer/social links, and all other current content are preserved.
+Built from the fresh GitHub export supplied on October 8, 2026. Existing recipes, herbs (including Dill, Garlic, Oregano, and Thyme), Kitchen Tools, images, contact form, analytics, footer/social links, and all other current content are preserved.
 
 ## v15 changes
 
@@ -76,3 +76,13 @@ Upload the contents of this folder to the existing `bema-trade/fate-apothecary` 
 - Existing `m.media-amazon.com` image URLs were removed from Library content while preserving every item, description, external product URL, category, featured flag, and Herb/Recipe relationship. Those entries will show their existing placeholders until personal photos are uploaded through the CMS.
 - The Amazon-specific Associates statement is intentionally **not** displayed yet because Fate Apothecary is not currently enrolled. Once enrollment begins and Amazon Special Links are used, add Amazon's required Associate identification statement at that time.
 - Removed the leftover pre-v16 `src/content/herb-resources/` folder; Bookshelf remains the single source for Herb reference resources.
+
+
+## v18 recipe-page usability update
+
+- Individual Recipe hero photos are now capped at a more intentional size instead of stretching to match the full intro-column height. Desktop recipe photos top out at 440px tall; mobile recipe photos use a compact 300px height.
+- Recipe image sizing is now separate from Herb/Garden resource hero sizing, so this change does not alter those profile pages.
+- The Recipe index/card images are unchanged.
+- Keep Screen Awake and Print Recipe remain above the recipe title on desktop.
+- On phones/tablets, the Recipe flow is now photo → recipe information → Keep Screen Awake / Print Recipe → ingredients and instructions. This keeps the cooking controls near the point where a reader has actually decided to use the recipe.
+- The change is template-level, so all existing and future Recipe profiles inherit the same behavior automatically.

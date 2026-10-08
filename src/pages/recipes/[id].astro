@@ -16,11 +16,6 @@ const selectedTools = (r.tools ?? [])
 ---
 <Base title={`${r.title} | Fate Apothecary`} description={r.description}>
   <article class="recipe-page shell">
-    <div class="recipe-action-bar" aria-label="Recipe tools">
-      <button id="wake-lock" class="recipe-action-button" type="button">Keep screen awake</button>
-      <button id="print-recipe" class="recipe-action-button" type="button">Print recipe</button>
-    </div>
-
     <section class="recipe-intro">
       <div class="recipe-intro-copy">
         <p class="eyebrow">Recipes{r.category ? ` · ${r.category}` : ``}</p>
@@ -32,6 +27,10 @@ const selectedTools = (r.tools ?? [])
           {r.prepTime && <div><strong>{r.prepTime}</strong><small>Prep</small></div>}
           {r.cookTime && <div><strong>{r.cookTime}</strong><small>Cook</small></div>}
           {r.temperature && <div><strong>{r.temperature}</strong><small>Temperature</small></div>}
+        </div>
+        <div class="recipe-action-bar" aria-label="Recipe tools">
+          <button id="wake-lock" class="recipe-action-button" type="button">Keep screen awake</button>
+          <button id="print-recipe" class="recipe-action-button" type="button">Print recipe</button>
         </div>
       </div>
       {r.image ? <img class="recipe-hero-image" src={r.image} alt={r.title} /> : <div class="recipe-photo-placeholder"><span>Food photo goes here</span></div>}
