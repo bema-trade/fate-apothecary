@@ -7,14 +7,14 @@ tags:
   - Gluten Free
   - Freezer Friendly
   - Air Fryer
-yield: About 35 meatballs
+yield: About 33 meatballs
 prepTime: About 10 minutes
 cookTime: About 20 minutes
 temperature: 425°F
 ingredients:
   - ingredient: 2 lb ground chicken
-  - ingredient: 1 small jar pesto — choose your favorite
-  - ingredient: About 1/2 bag Schär gluten-free breadcrumbs
+  - ingredient: 1 small (~6.7oz) jar pesto — choose your favorite
+  - ingredient: 125g (about 1/2 bag) Schär gluten-free breadcrumbs
   - ingredient: 2 eggs
   - ingredient: Salt and pepper, to taste
 tools:
